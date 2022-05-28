@@ -4,9 +4,9 @@ import {
   Box,
   Heading,
 } from '@chakra-ui/react';
-import { theme } from './theme/theme';
+import theme from './theme/theme';
 
-export function App() {
+export default function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box>
