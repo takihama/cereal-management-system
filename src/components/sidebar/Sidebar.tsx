@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouteLink } from 'react-router-dom';
 import {
   Box, Icon, Link, Stack, Text,
 } from '@chakra-ui/react';
@@ -15,9 +16,9 @@ interface LinkItemProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: MdDashboard, link: '/#' },
-  { name: 'Production', icon: AiOutlineTool, link: '/#' },
-  { name: 'Products', icon: FaBoxOpen, link: '/#' },
+  { name: 'Dashboard', icon: MdDashboard, link: '/dashboard' },
+  { name: 'Production', icon: AiOutlineTool, link: '/production' },
+  { name: 'Products', icon: FaBoxOpen, link: '/products' },
 ];
 
 interface NavItemProps {
@@ -31,7 +32,8 @@ export function NavItem({
 }: NavItemProps) {
   return (
     <Link
-      href={link}
+      as={RouteLink}
+      to={link}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
     >
@@ -41,11 +43,12 @@ export function NavItem({
         align="center"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: 'primary.500',
+          color: 'white',
         }}
       >
         <Icon fontSize="2xl" as={icon} />
-        <Text paddingLeft="2" display={navSize === 'small' ? 'none' : 'flex'}>
+        <Text paddingLeft="2" paddingRight="6" display={navSize === 'small' ? 'none' : 'flex'}>
           {name}
         </Text>
       </Stack>
@@ -64,7 +67,7 @@ export function Sidebar() {
     <Box
       minH="100vh"
       bg="gray.900"
-      color="white"
+      color="gray.200"
     >
       <Stack
         minH="80px"
