@@ -5,12 +5,12 @@ import {
   Heading,
   Stack,
 } from '@chakra-ui/react';
-import theme from './theme/theme';
+import extTheme from './theme/theme';
 import { Sidebar } from './components/sidebar/Sidebar';
 
 export default function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={extTheme}>
       <Box>
         <Stack direction="row">
           <Sidebar />
