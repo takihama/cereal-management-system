@@ -37,16 +37,15 @@ export function NavItem({
     >
       <Stack
         direction="row"
+        padding="4"
         align="center"
-        p="4"
-        spacing="4"
         cursor="pointer"
         _hover={{
           bg: 'cyan.400',
         }}
       >
-        <Icon fontSize="xl" as={icon} />
-        <Text alignItems="center" display={navSize === 'small' ? 'none' : 'flex'}>
+        <Icon fontSize="2xl" as={icon} />
+        <Text paddingLeft="2" display={navSize === 'small' ? 'none' : 'flex'}>
           {name}
         </Text>
       </Stack>
@@ -71,16 +70,16 @@ export function Sidebar() {
         minH="80px"
         direction="row"
         align="center"
-        justify="center"
         padding="4"
       >
         <Icon
           onClick={changeNavSize}
           as={GiHamburgerMenu}
-          fontSize="16"
+          fontSize="2xl"
           cursor="pointer"
         />
         <Text
+          paddingLeft="2"
           fontSize="3xl"
           fontFamily="monospace"
           fontWeight="bold"
