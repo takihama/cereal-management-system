@@ -22,15 +22,16 @@ interface HeaderSearch {
 interface HeaderProps {
   title: string
   icon: IconType
-  search: HeaderSearch
+  search: HeaderSearch | null
   buttons: Array<HeaderButtons>
 }
 
 export default function Header({
-  title, icon, search, buttons,
+  title, icon, search = null, buttons = [],
 }: HeaderProps) {
   return (
     <Stack
+      height="50px"
       direction="row"
       justifyContent="space-between"
       background="gray.100"
@@ -45,24 +46,26 @@ export default function Header({
       >
         <Icon fontSize="2xl" as={icon} />
         <Text>{title}</Text>
-        <InputGroup maxWidth="xl">
-          <Input
-            name={search.name}
-            value={search.value}
-            placeholder={search.placeholder}
-            onChange={search.onChange}
-            bg="white"
-            border="0"
-          />
-          <InputRightAddon
-            bg="primary.100"
-            _hover={{
-              bg: 'primary.300',
-            }}
-          >
-            <Icon as={BiSearch} />
-          </InputRightAddon>
-        </InputGroup>
+        {search && (
+          <InputGroup maxWidth="xl">
+            <Input
+              name={search.name}
+              value={search.value}
+              placeholder={search.placeholder}
+              onChange={search.onChange}
+              bg="white"
+              border="0"
+            />
+            <InputRightAddon
+              bg="primary.100"
+              _hover={{
+                bg: 'primary.300',
+              }}
+            >
+              <Icon as={BiSearch} />
+            </InputRightAddon>
+          </InputGroup>
+        )}
       </Stack>
       <Stack
         direction="row"
