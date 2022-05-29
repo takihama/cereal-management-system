@@ -1,40 +1,51 @@
 import React, { useState } from 'react';
-import { Stack } from '@chakra-ui/react';
+import { Stack, useDisclosure } from '@chakra-ui/react';
 import { FaBoxOpen } from 'react-icons/fa';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
 import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
+import CreateProductModal from '../components/modals/CreateProductModal';
 
 interface HeaderButtons {
   name: string
   icon?: IconType
   onClick: React.MouseEventHandler<Element>
 }
-
+interface Product {
+  name: string
+  code: string
+  image?: string
+  description: string
+}
 interface ProductsState {
   searchProduct: string
 }
 export default function Products() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchProduct, setSearchProduct] = useState<ProductsState['searchProduct']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProduct(evt.target.value);
   };
-  const onCreateProduct = () => {
-    console.log('Create product');
+  const handleCreateProduct = () => {
+    console.log('Create products');
+    onOpen();
   };
-  const onImportProducts = () => {
+  const handleImportProducts = () => {
     console.log('Import products');
+  };
+  const createProduct = (product: Product) => {
+    console.log(product);
   };
   const buttons: Array<HeaderButtons> = [{
     name: 'Create',
     icon: BsPlus,
-    onClick: onCreateProduct,
+    onClick: handleCreateProduct,
   },
   {
     name: 'Import',
     icon: BiImport,
-    onClick: onImportProducts,
+    onClick: handleImportProducts,
   },
   ];
   return (
@@ -52,6 +63,7 @@ export default function Products() {
         }}
         buttons={buttons}
       />
+      <CreateProductModal onCreateProduct={createProduct} isOpen={isOpen} onClose={onClose} />
     </Stack>
   );
 }
