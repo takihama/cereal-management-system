@@ -3,6 +3,7 @@ import { Stack, Text } from '@chakra-ui/react';
 import { MdDashboard } from 'react-icons/md';
 import Header from '../components/header/Header';
 import OEECard from '../components/card/OEECard';
+import Card from '../components/card/Card';
 
 export default function Dashboard() {
   const oee = {
@@ -89,7 +90,14 @@ export default function Dashboard() {
         justify="space-between"
         width="full"
       >
-        <Text>Hola</Text>
+        <Stack
+          paddingX="4"
+          spacing="8"
+        >
+          <Card>
+            <Text>Hola</Text>
+          </Card>
+        </Stack>
         <Stack
           paddingX="4"
           spacing="8"

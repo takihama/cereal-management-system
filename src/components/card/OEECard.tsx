@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stack, Text } from '@chakra-ui/react';
+import Card from './Card';
 
 interface CardTitle {
   name: string
@@ -18,28 +19,24 @@ interface OEECardProps {
 }
 export default function OEECard({ title, data, color }: OEECardProps) {
   return (
-    <Stack
-      maxWidth="md"
-      borderWidth="1px"
-      borderRadius="lg"
-      padding="4"
-    >
-      <Stack
-        direction="row"
-        justify="space-between"
-        spacing="12"
-        fontSize="md"
-        fontWeight="700"
-        color={color}
-      >
-        <Text>{title.name}</Text>
-        <Text>
-          {title.value}
+    <Card>
+      <>
+        <Stack
+          direction="row"
+          justify="space-between"
+          spacing="12"
+          fontSize="md"
+          fontWeight="700"
+          color={color}
+        >
+          <Text>{title.name}</Text>
+          <Text>
+            {title.value}
           &ensp;
-          {title.unit}
-        </Text>
-      </Stack>
-      {
+            {title.unit}
+          </Text>
+        </Stack>
+        {
         data.map((row) => (
           <Stack
             direction="row"
@@ -55,6 +52,8 @@ export default function OEECard({ title, data, color }: OEECardProps) {
           </Stack>
         ))
       }
-    </Stack>
+      </>
+
+    </Card>
   );
 }
