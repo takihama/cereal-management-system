@@ -47,7 +47,7 @@ export default function Products() {
   const importProducts = () => {
     console.log('importProducts');
   };
-  const buttons: Array<HeaderButtons> = [{
+  const headerButtons: Array<HeaderButtons> = [{
     name: 'Create',
     icon: BsPlus,
     onClick: handleCreateProduct,
@@ -71,7 +71,7 @@ export default function Products() {
           placeholder: 'Filter by product name or SKU',
           onChange: onSearchChange,
         }}
-        buttons={buttons}
+        buttons={headerButtons}
       />
       <CreateProductModal
         onCreateProduct={createProduct}
