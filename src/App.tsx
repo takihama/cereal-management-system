@@ -14,7 +14,7 @@ export default function App() {
   return (
     <ChakraProvider theme={extTheme}>
       <BrowserRouter>
-        <Stack direction="row">
+        <Stack direction="row" spacing="0">
           <Sidebar />
           <Routes>
             <Route path="/" element={<h1>Home</h1>} />
