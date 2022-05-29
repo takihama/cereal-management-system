@@ -7,6 +7,7 @@ import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/CreateProductModal';
 import ImportProductsModal from '../components/modals/ImportProductsModal';
+import ProductsTable from '../components/table/ProductsTable';
 
 interface HeaderButtons {
   name: string
@@ -82,6 +83,7 @@ export default function Products() {
         isOpen={isImportOpen}
         onClose={onImportClose}
       />
+      <ProductsTable products={products} />
     </Stack>
   );
 }
