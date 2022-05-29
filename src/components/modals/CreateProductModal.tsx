@@ -35,6 +35,12 @@ export default function CreateProductModal({
   };
   const handleOnCreate = () => {
     onCreateProduct(productInputValues);
+    setProductInputValues({
+      name: '',
+      code: '',
+      image: '',
+      description: '',
+    });
     console.log('onCreate');
     onClose();
   };

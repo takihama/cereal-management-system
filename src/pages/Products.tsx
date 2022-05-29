@@ -6,6 +6,7 @@ import { BiImport } from 'react-icons/bi';
 import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/CreateProductModal';
+import ImportProductsModal from '../components/modals/ImportProductsModal';
 
 interface HeaderButtons {
   name: string
@@ -20,22 +21,30 @@ interface Product {
 }
 interface ProductsState {
   searchProduct: string
+  products: Array<Product>
 }
 export default function Products() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
+  const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
+  const [products, setProducts] = useState<ProductsState['products']>([]);
   const [searchProduct, setSearchProduct] = useState<ProductsState['searchProduct']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProduct(evt.target.value);
   };
   const handleCreateProduct = () => {
     console.log('Create products');
-    onOpen();
+    onCreateOpen();
   };
   const handleImportProducts = () => {
     console.log('Import products');
+    onImportOpen();
   };
   const createProduct = (product: Product) => {
+    setProducts(products.concat(product));
     console.log(product);
+  };
+  const importProducts = () => {
+    console.log('importProducts');
   };
   const buttons: Array<HeaderButtons> = [{
     name: 'Create',
@@ -63,7 +72,16 @@ export default function Products() {
         }}
         buttons={buttons}
       />
-      <CreateProductModal onCreateProduct={createProduct} isOpen={isOpen} onClose={onClose} />
+      <CreateProductModal
+        onCreateProduct={createProduct}
+        isOpen={isCreateOpen}
+        onClose={onCreateClose}
+      />
+      <ImportProductsModal
+        onImportProducts={importProducts}
+        isOpen={isImportOpen}
+        onClose={onImportClose}
+      />
     </Stack>
   );
 }
