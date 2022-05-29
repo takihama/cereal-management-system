@@ -7,7 +7,7 @@ import { IconType } from 'react-icons';
 import { AiOutlineTool } from 'react-icons/ai';
 import { MdDashboard } from 'react-icons/md';
 import { FaBoxOpen } from 'react-icons/fa';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { GiHamburgerMenu, GiWoodPile } from 'react-icons/gi';
 
 interface LinkItemProps {
   name: string
@@ -19,6 +19,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: MdDashboard, link: '/dashboard' },
   { name: 'Production', icon: AiOutlineTool, link: '/production' },
   { name: 'Products', icon: FaBoxOpen, link: '/products' },
+  { name: 'Raws', icon: GiWoodPile, link: '/rawmaterials' },
 ];
 
 interface NavItemProps {

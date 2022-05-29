@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import extTheme from './theme/theme';
 import Production from './pages/Production';
 import Products from './pages/Products';
+import RawMaterials from './pages/RawMaterials';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/production" element={<Production />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/rawmaterials" element={<RawMaterials />} />
           </Routes>
         </Stack>
       </BrowserRouter>
