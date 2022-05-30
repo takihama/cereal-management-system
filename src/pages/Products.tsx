@@ -5,8 +5,8 @@ import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
 import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
-import CreateProductModal from '../components/modals/CreateProductModal';
-import ImportProductsModal from '../components/modals/ImportProductsModal';
+import CreateProductModal from '../components/modals/products/CreateProductModal';
+import ImportProductsModal from '../components/modals/products/ImportProductsModal';
 import CustomTable from '../components/table/CustomTable';
 
 interface HeaderButtons {
@@ -70,6 +70,11 @@ export default function Products() {
         }}
         buttons={headerButtons}
       />
+      <CustomTable
+        titles={titles}
+        data={products}
+        filter={null}
+      />
       <CreateProductModal
         onCreateProduct={createProduct}
         isOpen={isCreateOpen}
@@ -79,11 +84,6 @@ export default function Products() {
         onImportProducts={importProducts}
         isOpen={isImportOpen}
         onClose={onImportClose}
-      />
-      <CustomTable
-        titles={titles}
-        data={products}
-        filter={null}
       />
     </Stack>
   );

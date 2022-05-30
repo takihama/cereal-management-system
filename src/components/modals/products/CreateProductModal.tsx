@@ -12,7 +12,6 @@ interface Product {
   image?: string
   description: string
 }
-
 interface CreateProductModalProps {
   onCreateProduct: (product: Product) => void
   isOpen: boolean
@@ -41,7 +40,6 @@ export default function CreateProductModal({
       image: '',
       description: '',
     });
-    console.log('onCreate');
     onClose();
   };
   const initialRef = useRef<HTMLInputElement>(null);
@@ -94,7 +92,7 @@ export default function CreateProductModal({
               }}
               onClick={handleOnCreate}
             >
-              Create product
+              Create
             </Button>
             <Button
               bg="gray.100"

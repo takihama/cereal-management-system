@@ -7,14 +7,14 @@ import {
 import { BiImport } from 'react-icons/bi';
 import { BsFileEarmarkSpreadsheet } from 'react-icons/bs';
 
-interface ImportProductsModalPros {
+interface ImportProductsModalProps {
   onImportProducts: () => void
   isOpen: boolean
   onClose: () => void
 }
 export default function ImportProductsModal({
   onImportProducts, isOpen, onClose,
-}: ImportProductsModalPros) {
+}: ImportProductsModalProps) {
   const handleOnImport = () => {
     onImportProducts();
     console.log('onImport');
@@ -68,7 +68,7 @@ export default function ImportProductsModal({
               }}
               onClick={handleOnImport}
             >
-              Import products
+              Import
             </Button>
             <Button
               bg="gray.100"
