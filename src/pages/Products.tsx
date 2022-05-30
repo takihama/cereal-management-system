@@ -6,7 +6,7 @@ import { BiImport } from 'react-icons/bi';
 import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/products/CreateProductModal';
-import ImportProductsModal from '../components/modals/products/ImportProductsModal';
+import ImportModal from '../components/modals/ImportModal';
 import CustomTable from '../components/table/CustomTable';
 
 interface HeaderButtons {
@@ -80,8 +80,10 @@ export default function Products() {
         isOpen={isCreateOpen}
         onClose={onCreateClose}
       />
-      <ImportProductsModal
-        onImportProducts={importProducts}
+      <ImportModal
+        title="Import products"
+        icon={FaBoxOpen}
+        onImport={importProducts}
         isOpen={isImportOpen}
         onClose={onImportClose}
       />

@@ -5,19 +5,20 @@ import {
   ModalOverlay, Stack, Text,
 } from '@chakra-ui/react';
 import { BiImport } from 'react-icons/bi';
-import { BsFileEarmarkSpreadsheet } from 'react-icons/bs';
+import { IconType } from 'react-icons/lib';
 
-interface ImportProductsModalProps {
-  onImportProducts: () => void
+interface ImportModalProps {
+  title: string
+  icon: IconType
+  onImport: () => void
   isOpen: boolean
   onClose: () => void
 }
-export default function ImportProductsModal({
-  onImportProducts, isOpen, onClose,
-}: ImportProductsModalProps) {
+export default function ImportModal({
+  title, icon, onImport, isOpen, onClose,
+}: ImportModalProps) {
   const handleOnImport = () => {
-    onImportProducts();
-    console.log('onImport');
+    onImport();
     onClose();
   };
   const initialRef = useRef<HTMLInputElement>(null);
@@ -35,7 +36,7 @@ export default function ImportProductsModal({
             align="center"
           >
             <Icon as={BiImport} />
-            <Text>Import Products</Text>
+            <Text>{title}</Text>
           </Stack>
           <ModalCloseButton />
         </ModalHeader>
@@ -50,7 +51,7 @@ export default function ImportProductsModal({
                   bg: 'primary.300',
                 }}
               >
-                <Icon as={BsFileEarmarkSpreadsheet} />
+                <Icon as={icon} />
               </InputRightAddon>
             </InputGroup>
           </FormControl>

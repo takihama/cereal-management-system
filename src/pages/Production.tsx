@@ -7,7 +7,7 @@ import { BiImport } from 'react-icons/bi';
 import Header from '../components/header/Header';
 import CustomTable from '../components/table/CustomTable';
 import CreateProductionModal from '../components/modals/production/CreateProductionModal';
-import ImportProductionsModal from '../components/modals/production/ImportProductionsModal';
+import ImportModal from '../components/modals/ImportModal';
 
 interface HeaderButtons {
   name: string
@@ -80,8 +80,10 @@ export default function Production() {
         isOpen={isCreateOpen}
         onClose={onCreateClose}
       />
-      <ImportProductionsModal
-        onImportProducts={importProductionOrders}
+      <ImportModal
+        title="Import production orders"
+        icon={AiOutlineTool}
+        onImport={importProductionOrders}
         isOpen={isImportOpen}
         onClose={onImportClose}
       />
