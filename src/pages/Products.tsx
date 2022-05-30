@@ -7,7 +7,7 @@ import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/CreateProductModal';
 import ImportProductsModal from '../components/modals/ImportProductsModal';
-import ProductsTable from '../components/table/ProductsTable';
+import CustomTable from '../components/table/CustomTable';
 
 interface HeaderButtons {
   name: string
@@ -27,25 +27,22 @@ interface ProductsState {
 export default function Products() {
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
+  const titles = ['Product name', 'Product code', 'Image', 'Description'];
   const [products, setProducts] = useState<ProductsState['products']>([]);
   const [searchProduct, setSearchProduct] = useState<ProductsState['searchProduct']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProduct(evt.target.value);
   };
   const handleCreateProduct = () => {
-    console.log('Create products');
     onCreateOpen();
   };
   const handleImportProducts = () => {
-    console.log('Import products');
     onImportOpen();
   };
   const createProduct = (product: Product) => {
     setProducts(products.concat(product));
-    console.log(product);
   };
   const importProducts = () => {
-    console.log('importProducts');
   };
   const headerButtons: Array<HeaderButtons> = [{
     name: 'Create',
@@ -83,7 +80,11 @@ export default function Products() {
         isOpen={isImportOpen}
         onClose={onImportClose}
       />
-      <ProductsTable products={products} />
+      <CustomTable
+        titles={titles}
+        data={products}
+        filter={null}
+      />
     </Stack>
   );
 }
