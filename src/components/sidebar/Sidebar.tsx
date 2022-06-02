@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouteLink } from 'react-router-dom';
+import { NavLink as RouteLink } from 'react-router-dom';
 import {
   Box, Icon, Link, Stack, Text,
 } from '@chakra-ui/react';
@@ -17,7 +17,7 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: MdDashboard, link: '/dashboard' },
-  { name: 'Production', icon: AiOutlineTool, link: '/production' },
+  { name: 'Production', icon: AiOutlineTool, link: '/productionOrders' },
   { name: 'Products', icon: FaBoxOpen, link: '/products' },
   { name: 'Raws', icon: GiWoodPile, link: '/rawmaterials' },
 ];
@@ -37,6 +37,12 @@ export function NavItem({
       to={link}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
+      _activeLink={{
+        bg: 'primary.500',
+        color: 'white',
+      }}
+      borderBottom="1px"
+      borderColor="gray.900"
     >
       <Stack
         direction="row"
@@ -92,7 +98,7 @@ export function Sidebar() {
           Logo
         </Text>
       </Stack>
-      <Stack align="justify" justify="center">
+      <Stack align="justify" justify="center" spacing="0">
         {LinkItems.map(({ name, icon, link }) => (
           <NavItem key={name} icon={icon} name={name} link={link} navSize={navSize} />
         ))}
