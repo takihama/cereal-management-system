@@ -4,10 +4,10 @@ import { IconType } from 'react-icons';
 import { AiOutlineTool } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
-import Header from '../components/header/Header';
-import CustomTable from '../components/table/CustomTable';
-import CreateProductionModal from '../components/modals/production/CreateProductionModal';
-import ImportModal from '../components/modals/ImportModal';
+import Header from '../../components/header/Header';
+import CustomTable from '../../components/table/CustomTable';
+import CreateProductionModal from '../../components/modals/production/CreateProductionModal';
+import ImportModal from '../../components/modals/ImportModal';
 
 interface HeaderButtons {
   name: string
@@ -22,16 +22,16 @@ interface ProductionOrder {
   quantity: number
   startedOn?: string
 }
-interface ProductionState {
+interface ProductionOrdersState {
   searchProductionOrder: string
   productionOrders: Array<ProductionOrder>
 }
-export default function Production() {
+export default function ProductionOrders() {
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
   const titles = ['Order', 'Date', 'Manufacturer', 'Status', 'Quantity', 'Started on'];
-  const [productionOrders, setProductionOrders] = useState<ProductionState['productionOrders']>([]);
-  const [searchProductionOrder, setSearchProductionOrder] = useState<ProductionState['searchProductionOrder']>('');
+  const [productionOrders, setProductionOrders] = useState<ProductionOrdersState['productionOrders']>([]);
+  const [searchProductionOrder, setSearchProductionOrder] = useState<ProductionOrdersState['searchProductionOrder']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProductionOrder(evt.target.value);
   };
