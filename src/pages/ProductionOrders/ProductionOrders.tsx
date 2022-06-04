@@ -5,9 +5,9 @@ import { AiOutlineTool } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
 import Header from '../../components/header/Header';
-import CustomTable from '../../components/table/CustomTable';
 import CreateProductionModal from '../../components/modals/production/CreateProductionModal';
 import ImportModal from '../../components/modals/ImportModal';
+import CustomTableWFilter from '../../components/table/CustomTableWFilter';
 
 interface HeaderButtons {
   name: string
@@ -70,7 +70,7 @@ export default function ProductionOrders() {
         }}
         buttons={headerButtons}
       />
-      <CustomTable
+      <CustomTableWFilter
         titles={titles}
         data={productionOrders}
         filter={{ placeholder: 'Status is: Draft, InProduction or Completed', searchKey: 'status' }}

@@ -20,9 +20,8 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="productionOrders" element={<ProductionOrders />}>
-            <Route path=":productionOrderId" element={<ProductionOrder />} />
-          </Route>
+          <Route path="productionOrders" element={<ProductionOrders />} />
+          <Route path="productionOrders/:productionOrderId" element={<ProductionOrder />} />
           <Route path="products" element={<Products />} />
           <Route path="rawmaterials" element={<RawMaterials />} />
           <Route path="*" element={(<p>There is nothing here!</p>)} />
