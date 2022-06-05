@@ -57,7 +57,7 @@ export default function CreateProductModal({
             align="center"
           >
             <Icon as={FaBoxOpen} />
-            <Text>Create Product</Text>
+            <Text>Create product</Text>
           </Stack>
           <ModalCloseButton />
         </ModalHeader>
@@ -80,28 +80,11 @@ export default function CreateProductModal({
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <Stack
-            direction="row"
-            spacing="4"
-          >
-            <Button
-              bg="primary.100"
-              _focus={{ boxShadow: 'none' }}
-              _hover={{
-                bg: 'primary.300',
-              }}
-              onClick={handleOnCreate}
-            >
+          <Stack direction="row" spacing="4">
+            <Button onClick={handleOnCreate}>
               Create
             </Button>
-            <Button
-              bg="gray.100"
-              _focus={{ boxShadow: 'none' }}
-              _hover={{
-                bg: 'gray.300',
-              }}
-              onClick={onClose}
-            >
+            <Button onClick={onClose} variant="cancel">
               Cancel
             </Button>
           </Stack>

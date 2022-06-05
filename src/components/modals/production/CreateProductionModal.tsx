@@ -59,7 +59,7 @@ export default function CreateProductionModal(
         <ModalHeader>
           <Stack direction="row" align="center">
             <Icon as={AiOutlineTool} />
-            <Text>Create Production Order</Text>
+            <Text>Create production order</Text>
           </Stack>
           <ModalCloseButton />
         </ModalHeader>

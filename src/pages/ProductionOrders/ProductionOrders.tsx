@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouteLink } from 'react-router-dom';
 import {
-  Link, Stack, Text, useDisclosure,
+  Badge, Link, Stack, Text, useDisclosure,
 } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 import { AiOutlineTool } from 'react-icons/ai';
@@ -29,52 +29,54 @@ interface ProductionOrdersState {
   searchProductionOrder: string
   productionOrders: Array<ProductionOrder>
 }
+
+const tableHeaders = [{
+  header: 'Order',
+  accessor: 'id',
+  render: (data: any): JSX.Element => (
+    <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
+  ),
+},
+{
+  header: 'Date',
+  accessor: 'date',
+  render: (data: any): JSX.Element => (
+    <Text>{data}</Text>
+  ),
+},
+{
+  header: 'Manufacturer',
+  accessor: 'manufacturer',
+  render: (data: any) => (
+    <Text>{data}</Text>
+  ),
+},
+{
+  header: 'Status',
+  accessor: 'status',
+  render: (data: any) => (
+    <Badge padding="1">{data}</Badge>
+  ),
+},
+{
+  header: 'Quantity',
+  accessor: 'quantity',
+  render: (data: any) => (
+    <Text>{data}</Text>
+  ),
+},
+{
+  header: 'Started on',
+  accessor: 'startDate',
+  render: (data: any) => (
+    <Text>{data}</Text>
+  ),
+},
+];
+
 export default function ProductionOrders() {
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
-  const headers = [{
-    header: 'Order',
-    accessor: 'id',
-    render: (data: any): JSX.Element => (
-      <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
-    ),
-  },
-  {
-    header: 'Date',
-    accessor: 'date',
-    render: (data: any): JSX.Element => (
-      <Text>{data}</Text>
-    ),
-  },
-  {
-    header: 'Manufacturer',
-    accessor: 'manufacturer',
-    render: (data: any) => (
-      <Text>{data}</Text>
-    ),
-  },
-  {
-    header: 'Status',
-    accessor: 'status',
-    render: (data: any) => (
-      <Text>{data}</Text>
-    ),
-  },
-  {
-    header: 'Quantity',
-    accessor: 'quantity',
-    render: (data: any) => (
-      <Text>{data}</Text>
-    ),
-  },
-  {
-    header: 'Started on',
-    accessor: 'startDate',
-    render: (data: any) => (
-      <Text>{data}</Text>
-    ),
-  },
-  ];
 
   const [productionOrders, setProductionOrders] = useState<ProductionOrdersState['productionOrders']>([]);
   const [searchProductionOrder, setSearchProductionOrder] = useState<ProductionOrdersState['searchProductionOrder']>('');
@@ -117,7 +119,7 @@ export default function ProductionOrders() {
         buttons={headerButtons}
       />
       <CustomTable
-        headers={headers}
+        headers={tableHeaders}
         datasource={productionOrders}
       />
       <CreateProductionModal
