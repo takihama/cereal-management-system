@@ -6,7 +6,7 @@ import {
 import { AiOutlineTool } from 'react-icons/ai';
 
 interface ProductionOrder {
-  order: string
+  id: string
   date: string
   manufacturer: string
   status: string
@@ -22,7 +22,7 @@ export default function CreateProductionModal(
   { onCreateProduction, isOpen, onClose }: CreateProductionModalProps,
 ) {
   const [productionInputValues, setProductionInputValues] = useState<ProductionOrder>({
-    order: '',
+    id: '',
     date: '',
     manufacturer: '',
     status: 'draft',
@@ -38,7 +38,7 @@ export default function CreateProductionModal(
   const handleOnCreate = () => {
     onCreateProduction(productionInputValues);
     setProductionInputValues({
-      order: '',
+      id: '',
       date: '',
       manufacturer: '',
       status: 'draft',
@@ -50,16 +50,14 @@ export default function CreateProductionModal(
   const initialRef = useRef<HTMLInputElement>(null);
   return (
     <Modal
+      initialFocusRef={initialRef}
       isOpen={isOpen}
       onClose={onClose}
     >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Stack
-            direction="row"
-            align="center"
-          >
+          <Stack direction="row" align="center">
             <Icon as={AiOutlineTool} />
             <Text>Create Production Order</Text>
           </Stack>
@@ -68,7 +66,7 @@ export default function CreateProductionModal(
         <ModalBody>
           <FormControl>
             <FormLabel htmlFor="order">Production order</FormLabel>
-            <Input id="order" name="order" type="text" value={productionInputValues.order} ref={initialRef} onChange={handleInputChanges} />
+            <Input id="id" name="id" type="text" value={productionInputValues.id} ref={initialRef} onChange={handleInputChanges} />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="date">Date</FormLabel>
@@ -84,28 +82,11 @@ export default function CreateProductionModal(
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <Stack
-            direction="row"
-            spacing="4"
-          >
-            <Button
-              bg="primary.100"
-              _focus={{ boxShadow: 'none' }}
-              _hover={{
-                bg: 'primary.300',
-              }}
-              onClick={handleOnCreate}
-            >
+          <Stack direction="row" spacing="4">
+            <Button onClick={handleOnCreate}>
               Create
             </Button>
-            <Button
-              bg="gray.100"
-              _focus={{ boxShadow: 'none' }}
-              _hover={{
-                bg: 'gray.300',
-              }}
-              onClick={onClose}
-            >
+            <Button variant="cancel" onClick={onClose}>
               Cancel
             </Button>
           </Stack>

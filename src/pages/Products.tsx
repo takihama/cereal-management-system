@@ -7,7 +7,7 @@ import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/products/CreateProductModal';
 import ImportModal from '../components/modals/ImportModal';
-import CustomTable from '../components/table/CustomTable';
+import CustomTableWFilter from '../components/table/CustomTableWFilter';
 
 interface HeaderButtons {
   name: string
@@ -70,7 +70,7 @@ export default function Products() {
         }}
         buttons={headerButtons}
       />
-      <CustomTable
+      <CustomTableWFilter
         titles={titles}
         data={products}
         filter={null}

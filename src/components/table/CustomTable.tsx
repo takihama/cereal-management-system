@@ -10,7 +10,7 @@ interface Header {
   render: (data: any) => JSX.Element
 }
 interface Row {
-  id: number
+  id: string | number
 }
 interface CustomTableProps {
   headers: Array<Header>
@@ -87,9 +87,9 @@ export default function CustomTable({ headers, datasource }: CustomTableProps) {
         <Stack direction="row" align="center">
           <Text>Show</Text>
           <Select
+            onChange={handleSelectChange}
             size="sm"
             minWidth="80px"
-            onChange={handleSelectChange}
           >
             <option value="10">10</option>
             <option value="25">25</option>
@@ -99,25 +99,13 @@ export default function CustomTable({ headers, datasource }: CustomTableProps) {
           <Text>entries</Text>
         </Stack>
         <Stack direction="row" paddingY="4">
-          <Button
-            size="sm"
-            _focus={{ boxShadow: 'none' }}
-            onClick={handleDecrementPage}
-          >
+          <Button onClick={handleDecrementPage} variant="cancel" size="sm">
             Previous
           </Button>
-          <Button
-            size="sm"
-            bg="primary.100"
-            _focus={{ boxShadow: 'none' }}
-          >
+          <Button size="sm">
             {page}
           </Button>
-          <Button
-            size="sm"
-            _focus={{ boxShadow: 'none' }}
-            onClick={handleIncrementPage}
-          >
+          <Button onClick={handleIncrementPage} variant="cancel" size="sm">
             Next
           </Button>
         </Stack>

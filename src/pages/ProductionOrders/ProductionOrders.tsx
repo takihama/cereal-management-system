@@ -1,5 +1,8 @@
-import { Stack, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { Link as RouteLink } from 'react-router-dom';
+import {
+  Link, Stack, Text, useDisclosure,
+} from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 import { AiOutlineTool } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
@@ -7,7 +10,7 @@ import { BiImport } from 'react-icons/bi';
 import Header from '../../components/header/Header';
 import CreateProductionModal from '../../components/modals/production/CreateProductionModal';
 import ImportModal from '../../components/modals/ImportModal';
-import CustomTableWFilter from '../../components/table/CustomTableWFilter';
+import CustomTable from '../../components/table/CustomTable';
 
 interface HeaderButtons {
   name: string
@@ -15,7 +18,7 @@ interface HeaderButtons {
   onClick: React.MouseEventHandler<Element>
 }
 interface ProductionOrder {
-  order: string
+  id: string
   date: string
   manufacturer: string
   status: string
@@ -29,7 +32,50 @@ interface ProductionOrdersState {
 export default function ProductionOrders() {
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
-  const titles = ['Order', 'Date', 'Manufacturer', 'Status', 'Quantity', 'Started on'];
+  const headers = [{
+    header: 'Order',
+    accessor: 'id',
+    render: (data: any): JSX.Element => (
+      <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
+    ),
+  },
+  {
+    header: 'Date',
+    accessor: 'date',
+    render: (data: any): JSX.Element => (
+      <Text>{data}</Text>
+    ),
+  },
+  {
+    header: 'Manufacturer',
+    accessor: 'manufacturer',
+    render: (data: any) => (
+      <Text>{data}</Text>
+    ),
+  },
+  {
+    header: 'Status',
+    accessor: 'status',
+    render: (data: any) => (
+      <Text>{data}</Text>
+    ),
+  },
+  {
+    header: 'Quantity',
+    accessor: 'quantity',
+    render: (data: any) => (
+      <Text>{data}</Text>
+    ),
+  },
+  {
+    header: 'Started on',
+    accessor: 'startDate',
+    render: (data: any) => (
+      <Text>{data}</Text>
+    ),
+  },
+  ];
+
   const [productionOrders, setProductionOrders] = useState<ProductionOrdersState['productionOrders']>([]);
   const [searchProductionOrder, setSearchProductionOrder] = useState<ProductionOrdersState['searchProductionOrder']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,10 +116,9 @@ export default function ProductionOrders() {
         }}
         buttons={headerButtons}
       />
-      <CustomTableWFilter
-        titles={titles}
-        data={productionOrders}
-        filter={{ placeholder: 'Status is: Draft, InProduction or Completed', searchKey: 'status' }}
+      <CustomTable
+        headers={headers}
+        datasource={productionOrders}
       />
       <CreateProductionModal
         onCreateProduction={createProductionOrder}

@@ -1,6 +1,5 @@
 import {
-  Button,
-  Icon, Input, InputGroup, InputRightAddon, Stack, Text,
+  Button, Icon, Input, InputGroup, InputRightAddon, Stack, Text,
 } from '@chakra-ui/react';
 import React from 'react';
 import { IconType } from 'react-icons';
@@ -77,11 +76,6 @@ export default function Header({
         {buttons.map((button) => (
           <Button
             key={button.name}
-            bg="primary.100"
-            _hover={{
-              bg: 'primary.300',
-            }}
-            _focus={{ boxShadow: 'none' }}
             onClick={button.onClick}
           >
             <Stack

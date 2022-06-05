@@ -61,24 +61,10 @@ export default function ImportModal({
             direction="row"
             spacing="4"
           >
-            <Button
-              bg="primary.100"
-              _focus={{ boxShadow: 'none' }}
-              _hover={{
-                bg: 'primary.300',
-              }}
-              onClick={handleOnImport}
-            >
+            <Button onClick={handleOnImport}>
               Import
             </Button>
-            <Button
-              bg="gray.100"
-              _focus={{ boxShadow: 'none' }}
-              _hover={{
-                bg: 'gray.300',
-              }}
-              onClick={onClose}
-            >
+            <Button onClick={onClose} variant="cancel">
               Cancel
             </Button>
           </Stack>
