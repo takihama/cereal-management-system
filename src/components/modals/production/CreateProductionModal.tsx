@@ -4,15 +4,8 @@ import {
   ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text,
 } from '@chakra-ui/react';
 import { AiOutlineTool } from 'react-icons/ai';
+import { ProductionOrder } from '../../../types';
 
-interface ProductionOrder {
-  id: string
-  date: string
-  manufacturer: string
-  status: string
-  quantity: number
-  startedOn?: string
-}
 interface CreateProductionModalProps {
   onCreateProduction: (product: ProductionOrder) => void
   isOpen: boolean

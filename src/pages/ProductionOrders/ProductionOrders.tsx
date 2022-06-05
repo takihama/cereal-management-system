@@ -3,7 +3,6 @@ import { Link as RouteLink } from 'react-router-dom';
 import {
   Badge, Link, Stack, Text, useDisclosure,
 } from '@chakra-ui/react';
-import { IconType } from 'react-icons';
 import { AiOutlineTool } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
@@ -11,20 +10,8 @@ import Header from '../../components/header/Header';
 import CreateProductionModal from '../../components/modals/production/CreateProductionModal';
 import ImportModal from '../../components/modals/ImportModal';
 import CustomTable from '../../components/table/CustomTable';
+import { ProductionOrder } from '../../types';
 
-interface HeaderButtons {
-  name: string
-  icon?: IconType
-  onClick: React.MouseEventHandler<Element>
-}
-interface ProductionOrder {
-  id: string
-  date: string
-  manufacturer: string
-  status: string
-  quantity: number
-  startedOn?: string
-}
 interface ProductionOrdersState {
   searchProductionOrder: string
   productionOrders: Array<ProductionOrder>
@@ -94,7 +81,7 @@ export default function ProductionOrders() {
   };
   const importProductionOrders = () => {
   };
-  const headerButtons: Array<HeaderButtons> = [{
+  const headerButtons = [{
     name: 'Create',
     icon: BsPlus,
     onClick: handleCreateProductionOrder,

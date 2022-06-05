@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { Stack } from '@chakra-ui/react';
-import { IconType } from 'react-icons';
 import { GiWoodPile } from 'react-icons/gi';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
 import Header from '../components/header/Header';
 
-interface HeaderButtons {
-  name: string
-  icon?: IconType
-  onClick: React.MouseEventHandler<Element>
-}
 interface RawMaterialsState {
   searchRawMaterials: string
 }
@@ -25,7 +19,7 @@ export default function RawMaterials() {
   const handleImportRawMaterials = () => {
     console.log('handleImportRawMaterials');
   };
-  const headerButtons: Array<HeaderButtons> = [{
+  const headerButtons = [{
     name: 'Create',
     icon: BsPlus,
     onClick: handleCreateRawMaterial,

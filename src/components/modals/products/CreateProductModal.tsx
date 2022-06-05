@@ -5,13 +5,8 @@ import {
   Stack, Text,
 } from '@chakra-ui/react';
 import { FaBoxOpen } from 'react-icons/fa';
+import { Product } from '../../../types';
 
-interface Product {
-  name: string
-  code: string
-  image?: string
-  description: string
-}
 interface CreateProductModalProps {
   onCreateProduct: (product: Product) => void
   isOpen: boolean

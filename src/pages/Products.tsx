@@ -3,23 +3,12 @@ import { Stack, useDisclosure } from '@chakra-ui/react';
 import { FaBoxOpen } from 'react-icons/fa';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
-import { IconType } from 'react-icons';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/products/CreateProductModal';
 import ImportModal from '../components/modals/ImportModal';
 import CustomTableWFilter from '../components/table/CustomTableWFilter';
+import { Product } from '../types';
 
-interface HeaderButtons {
-  name: string
-  icon?: IconType
-  onClick: React.MouseEventHandler<Element>
-}
-interface Product {
-  name: string
-  code: string
-  image?: string
-  description: string
-}
 interface ProductsState {
   searchProduct: string
   products: Array<Product>
@@ -44,7 +33,7 @@ export default function Products() {
   };
   const importProducts = () => {
   };
-  const headerButtons: Array<HeaderButtons> = [{
+  const headerButtons = [{
     name: 'Create',
     icon: BsPlus,
     onClick: handleCreateProduct,
