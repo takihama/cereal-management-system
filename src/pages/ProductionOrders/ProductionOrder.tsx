@@ -1,12 +1,19 @@
 import React from 'react';
-import { Text } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import { AiOutlineTool } from 'react-icons/ai';
+import Header from '../../components/header/Header';
 
 export default function ProductionOrder() {
   const params = useParams();
   return (
-    <Text>
-      {params.productionOrderId}
-    </Text>
+    <Stack width="full">
+      <Header
+        title={`Production Order: ${params.productionOrderId}`}
+        icon={AiOutlineTool}
+        search={null}
+        buttons={[]}
+      />
+    </Stack>
   );
 }

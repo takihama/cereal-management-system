@@ -59,19 +59,44 @@ export default function CreateProductionModal(
         <ModalBody>
           <FormControl>
             <FormLabel htmlFor="order">Production order</FormLabel>
-            <Input id="id" name="id" type="text" value={productionInputValues.id} ref={initialRef} onChange={handleInputChanges} />
+            <Input
+              id="id"
+              name="id"
+              type="text"
+              value={productionInputValues.id}
+              ref={initialRef}
+              onChange={handleInputChanges}
+            />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="date">Date</FormLabel>
-            <Input id="date" name="date" type="text" value={productionInputValues.date} onChange={handleInputChanges} />
+            <Input
+              id="date"
+              name="date"
+              type="text"
+              value={productionInputValues.date}
+              onChange={handleInputChanges}
+            />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="manufacturer">Manufacturer</FormLabel>
-            <Input id="manufacturer" name="manufacturer" type="text" value={productionInputValues.manufacturer} onChange={handleInputChanges} />
+            <Input
+              id="manufacturer"
+              name="manufacturer"
+              type="text"
+              value={productionInputValues.manufacturer}
+              onChange={handleInputChanges}
+            />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="quantity">Quantity</FormLabel>
-            <Input id="quantity" name="quantity" type="text" value={productionInputValues.quantity} onChange={handleInputChanges} />
+            <Input
+              id="quantity"
+              name="quantity"
+              type="number"
+              value={productionInputValues.quantity}
+              onChange={handleInputChanges}
+            />
           </FormControl>
         </ModalBody>
         <ModalFooter>

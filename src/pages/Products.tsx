@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, useDisclosure } from '@chakra-ui/react';
+import { Box, Stack, useDisclosure } from '@chakra-ui/react';
 import { FaBoxOpen } from 'react-icons/fa';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
@@ -45,9 +45,7 @@ export default function Products() {
   },
   ];
   return (
-    <Stack
-      width="100%"
-    >
+    <Stack width="100%">
       <Header
         title="Products"
         icon={FaBoxOpen}
@@ -59,11 +57,15 @@ export default function Products() {
         }}
         buttons={headerButtons}
       />
-      <CustomTableWFilter
-        titles={titles}
-        data={products}
-        filter={null}
-      />
+      <Box padding="4">
+        <Box bg="white">
+          <CustomTableWFilter
+            titles={titles}
+            data={products}
+            filter={null}
+          />
+        </Box>
+      </Box>
       <CreateProductModal
         onCreateProduct={createProduct}
         isOpen={isCreateOpen}

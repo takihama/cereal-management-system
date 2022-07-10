@@ -81,7 +81,7 @@ export default function CustomTableWFilter({ titles, data, filter }: CustomTable
               color="primary.500"
               fontWeight="500"
             >
-              Filters
+              z
             </Text>
             <InputGroup size="sm" maxWidth="md">
               <Input

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouteLink } from 'react-router-dom';
 import {
-  Badge, Link, Stack, Text, useDisclosure,
+  Badge, Box, Link, Stack, Text, useDisclosure,
 } from '@chakra-ui/react';
 import { AiOutlineTool } from 'react-icons/ai';
 import { BsPlus } from 'react-icons/bs';
@@ -105,10 +105,14 @@ export default function ProductionOrders() {
         }}
         buttons={headerButtons}
       />
-      <CustomTable
-        headers={tableHeaders}
-        datasource={productionOrders}
-      />
+      <Box padding="4">
+        <Box bg="white">
+          <CustomTable
+            headers={tableHeaders}
+            datasource={productionOrders}
+          />
+        </Box>
+      </Box>
       <CreateProductionModal
         onCreateProduction={createProductionOrder}
         isOpen={isCreateOpen}

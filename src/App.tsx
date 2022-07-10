@@ -5,7 +5,7 @@ import { Sidebar } from './components/sidebar/Sidebar';
 
 export default function App() {
   return (
-    <Stack direction="row" spacing="0">
+    <Stack direction="row" spacing="0" bg="gray.100">
       <Sidebar />
       <Outlet />
     </Stack>

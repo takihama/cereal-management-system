@@ -33,7 +33,7 @@ export default function Header({
       height="50px"
       direction="row"
       justifyContent="space-between"
-      background="gray.100"
+      background="white"
     >
       <Stack
         direction="row"
