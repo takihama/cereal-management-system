@@ -11,7 +11,6 @@ export default function ProductionOrder() {
       <Header
         title={`Production Order: ${params.productionOrderId}`}
         icon={AiOutlineTool}
-        search={null}
         buttons={[]}
       />
     </Stack>

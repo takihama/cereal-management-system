@@ -82,7 +82,6 @@ export default function Dashboard() {
       <Header
         title="Dashboard"
         icon={MdDashboard}
-        search={null}
         buttons={[]}
       />
       <Stack

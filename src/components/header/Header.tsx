@@ -21,12 +21,12 @@ interface HeaderSearch {
 interface HeaderProps {
   title: string
   icon: IconType
-  search: HeaderSearch | null
-  buttons: Array<HeaderButtons>
+  search?: HeaderSearch
+  buttons?: Array<HeaderButtons>
 }
 
 export default function Header({
-  title, icon, search = null, buttons = [],
+  title, icon, search, buttons = [],
 }: HeaderProps) {
   return (
     <Stack
