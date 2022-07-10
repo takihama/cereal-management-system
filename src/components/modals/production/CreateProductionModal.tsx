@@ -15,11 +15,12 @@ export default function CreateProductionModal(
   { onCreateProduction, isOpen, onClose }: CreateProductionModalProps,
 ) {
   const [productionInputValues, setProductionInputValues] = useState<ProductionOrder>({
-    id: '',
-    date: '',
+    id: 0,
+    code: '',
     manufacturer: '',
+    description: '',
+    date: '',
     status: 'draft',
-    quantity: 0,
     startedOn: '',
   });
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,11 +32,12 @@ export default function CreateProductionModal(
   const handleOnCreate = () => {
     onCreateProduction(productionInputValues);
     setProductionInputValues({
-      id: '',
-      date: '',
+      id: 0,
+      code: '',
       manufacturer: '',
+      description: '',
+      date: '',
       status: 'draft',
-      quantity: 0,
       startedOn: '',
     });
     onClose();
@@ -58,23 +60,13 @@ export default function CreateProductionModal(
         </ModalHeader>
         <ModalBody>
           <FormControl>
-            <FormLabel htmlFor="order">Production order</FormLabel>
+            <FormLabel htmlFor="order">Code</FormLabel>
             <Input
-              id="id"
-              name="id"
+              id="code"
+              name="code"
               type="text"
-              value={productionInputValues.id}
+              value={productionInputValues.code}
               ref={initialRef}
-              onChange={handleInputChanges}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="date">Date</FormLabel>
-            <Input
-              id="date"
-              name="date"
-              type="text"
-              value={productionInputValues.date}
               onChange={handleInputChanges}
             />
           </FormControl>
@@ -89,12 +81,22 @@ export default function CreateProductionModal(
             />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="quantity">Quantity</FormLabel>
+            <FormLabel htmlFor="order">Description</FormLabel>
             <Input
-              id="quantity"
-              name="quantity"
-              type="number"
-              value={productionInputValues.quantity}
+              id="description"
+              name="description"
+              type="text"
+              value={productionInputValues.description}
+              onChange={handleInputChanges}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="date">Date</FormLabel>
+            <Input
+              id="date"
+              name="date"
+              type="text"
+              value={productionInputValues.date}
               onChange={handleInputChanges}
             />
           </FormControl>

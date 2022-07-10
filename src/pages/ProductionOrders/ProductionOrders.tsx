@@ -20,7 +20,7 @@ interface ProductionOrdersState {
 const tableHeaders = [
   {
     title: 'Order',
-    accessor: 'id',
+    accessor: 'code',
     render: (data: any): JSX.Element => (
       <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
     ),

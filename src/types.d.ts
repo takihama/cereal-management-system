@@ -1,14 +1,15 @@
 export interface ProductionOrder {
-  id: string
-  date: string
+  id: number
+  code: string
   manufacturer: string
+  description?: string
+  date: string
   status: string
-  quantity: number
   startedOn?: string
 }
 
 export interface Product {
-  id: string
+  id: number
   name: string
   code: string
   image?: string
@@ -16,7 +17,7 @@ export interface Product {
 }
 
 export interface Raw {
-  id: string
+  id: number
   name: string
   code: string
   description: string

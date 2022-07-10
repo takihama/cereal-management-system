@@ -15,7 +15,7 @@ export default function CreateRawMaterialModal({
   onCreateRaw, isOpen, onClose,
 }: CreateRawMaterialModalProps) {
   const [rawInputValues, setProductInputValues] = useState<Raw>({
-    id: '',
+    id: 0,
     name: '',
     code: '',
     description: '',
@@ -29,7 +29,7 @@ export default function CreateRawMaterialModal({
   const handleOnCreate = () => {
     onCreateRaw(rawInputValues);
     setProductInputValues({
-      id: '',
+      id: 0,
       name: '',
       code: '',
       description: '',

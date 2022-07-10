@@ -16,7 +16,7 @@ export default function CreateProductModal({
   onCreateProduct, isOpen, onClose,
 }: CreateProductModalProps) {
   const [productInputValues, setProductInputValues] = useState<Product>({
-    id: '',
+    id: 0,
     name: '',
     code: '',
     image: '',
@@ -31,7 +31,7 @@ export default function CreateProductModal({
   const handleOnCreate = () => {
     onCreateProduct(productInputValues);
     setProductInputValues({
-      id: '',
+      id: 0,
       name: '',
       code: '',
       image: '',
