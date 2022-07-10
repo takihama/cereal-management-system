@@ -1,23 +1,46 @@
 import React, { useState } from 'react';
-import { Stack } from '@chakra-ui/react';
+import { Box, Stack, useDisclosure } from '@chakra-ui/react';
 import { GiWoodPile } from 'react-icons/gi';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
 import Header from '../components/header/Header';
+import CreateRawMaterialModal from '../components/modals/raws/CreateRawModal';
+import { Raw } from '../types';
+import CustomTable from '../components/table/CustomTable';
 
 interface RawMaterialsState {
+  rawMaterials: Array<Raw>
   searchRawMaterials: string
 }
+const tableHeaders = [
+  {
+    title: 'Code',
+    accessor: 'code',
+  },
+  {
+    title: 'Name',
+    accessor: 'name',
+  },
+  {
+    title: 'Description',
+    accessor: 'description',
+  },
+];
 export default function RawMaterials() {
+  const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
+  const [rawMaterials, setRawMaterials] = useState<RawMaterialsState['rawMaterials']>([]);
   const [searchRawMaterials, setSearchRawMaterials] = useState<RawMaterialsState['searchRawMaterials']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setSearchRawMaterials(evt.target.value);
   };
   const handleCreateRawMaterial = () => {
-    console.log('handleCreateRawMaterial');
+    onCreateOpen();
   };
   const handleImportRawMaterials = () => {
     console.log('handleImportRawMaterials');
+  };
+  const createRawMaterial = (rawMaterial: Raw) => {
+    setRawMaterials(rawMaterials.concat(rawMaterial));
   };
   const headerButtons = [{
     name: 'Create',
@@ -42,6 +65,19 @@ export default function RawMaterials() {
           onChange: onSearchChange,
         }}
         buttons={headerButtons}
+      />
+      <Box padding="4">
+        <Box bg="white">
+          <CustomTable
+            headers={tableHeaders}
+            datasource={rawMaterials}
+          />
+        </Box>
+      </Box>
+      <CreateRawMaterialModal
+        onCreateRaw={createRawMaterial}
+        isOpen={isCreateOpen}
+        onClose={onCreateClose}
       />
     </Stack>
   );
