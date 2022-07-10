@@ -1,4 +1,4 @@
-import { NewProduct } from "../types";
+import { NewProduct, NewProductionOrder } from "../types";
 
 const isString = (text: unknown): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -24,4 +24,18 @@ const toNewProduct = ({ name, code, description }: ProductFields): NewProduct =>
   return newEntry;
 };
 
-export default toNewProduct;
+type ProductionOrderFields = { code: unknown, manufacturer: unknown, description: unknown };
+const toNewProductionOrder = ({ code, manufacturer, description }: ProductionOrderFields): NewProductionOrder => {
+  const newEntry: NewProductionOrder = {
+    code: parseString(code),
+    manufacturer: parseString(manufacturer),
+    description: parseString(description)
+  };
+
+  return newEntry;
+};
+
+export default {
+  toNewProduct,
+  toNewProductionOrder
+};

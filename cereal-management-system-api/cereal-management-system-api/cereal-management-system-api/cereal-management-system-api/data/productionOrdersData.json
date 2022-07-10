@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "code": "OPCF0001",
+    "manufacturer": "Arcor",
+    "description": "Cornflakes",
+    "date": "10/07/2022",
+    "status": "DRAFT"
+  },
+  {
+    "id": 2,
+    "code": "OPCFWS0001",
+    "manufacturer": "Tres Arroyos",
+    "description": "Cornflakes without sugar",
+    "date": "10/07/2022",
+    "status": "DRAFT"
+  }
+]

@@ -1,30 +1,30 @@
 import express from 'express';
 
-import productsService from '../services/productsService';
+import productionOrdersService from '../services/productionOrdersService';
 import utils from '../../utils/utils';
 
 const router = express.Router();
 
 router.get('/:id', (req, res) => {
-  const product = productsService.findById(Number(req.params.id));
+  const productionOrder = productionOrdersService.findById(Number(req.params.id));
 
-  if (product) {
-    res.send(product);
+  if (productionOrder) {
+    res.send(productionOrder);
   } else {
     res.sendStatus(404);
   }
 });
 
 router.get('/', (_req, res) => {
-  res.send(productsService.getEntries());
+  res.send(productionOrdersService.getEntries());
 });
 
 router.post('/', (req, res) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const newProduct = utils.toNewProduct(req.body);
+    const newProductionOrder = utils.toNewProductionOrder(req.body);
 
-    const addedEntry = productsService.addProduct(newProduct);
+    const addedEntry = productionOrdersService.addProductionOrder(newProductionOrder);
     res.json(addedEntry);
   } catch (error: unknown) {
     let errorMessage = 'Something went wrong.';
