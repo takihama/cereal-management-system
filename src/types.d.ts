@@ -14,3 +14,10 @@ export interface Product {
   image?: string
   description: string
 }
+
+export interface Raw {
+  id: string
+  name: string
+  code: string
+  description: string
+}
