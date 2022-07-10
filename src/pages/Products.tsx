@@ -63,6 +63,7 @@ export default function Products() {
     onClick: handleImportProducts,
   },
   ];
+
   return (
     <Stack width="100%">
       <Header
