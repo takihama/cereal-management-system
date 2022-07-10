@@ -6,17 +6,36 @@ import { BiImport } from 'react-icons/bi';
 import Header from '../components/header/Header';
 import CreateProductModal from '../components/modals/products/CreateProductModal';
 import ImportModal from '../components/modals/ImportModal';
-import CustomTableWFilter from '../components/table/CustomTableWFilter';
 import { Product } from '../types';
+import CustomTable from '../components/table/CustomTable';
 
 interface ProductsState {
   searchProduct: string
   products: Array<Product>
 }
+
+const tableHeaders = [
+  {
+    title: 'Image',
+    accessor: 'image',
+  },
+  {
+    title: 'Code',
+    accessor: 'code',
+  },
+  {
+    title: 'Name',
+    accessor: 'name',
+  },
+  {
+    title: 'Description',
+    accessor: 'description',
+  },
+];
+
 export default function Products() {
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const { isOpen: isImportOpen, onOpen: onImportOpen, onClose: onImportClose } = useDisclosure();
-  const titles = ['Product name', 'Product code', 'Image', 'Description'];
   const [products, setProducts] = useState<ProductsState['products']>([]);
   const [searchProduct, setSearchProduct] = useState<ProductsState['searchProduct']>('');
   const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,10 +78,9 @@ export default function Products() {
       />
       <Box padding="4">
         <Box bg="white">
-          <CustomTableWFilter
-            titles={titles}
-            data={products}
-            filter={null}
+          <CustomTable
+            headers={tableHeaders}
+            datasource={products}
           />
         </Box>
       </Box>

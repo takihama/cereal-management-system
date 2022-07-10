@@ -8,6 +8,7 @@ export interface ProductionOrder {
 }
 
 export interface Product {
+  id: string
   name: string
   code: string
   image?: string

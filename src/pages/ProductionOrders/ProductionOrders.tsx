@@ -17,48 +17,37 @@ interface ProductionOrdersState {
   productionOrders: Array<ProductionOrder>
 }
 
-const tableHeaders = [{
-  header: 'Order',
-  accessor: 'id',
-  render: (data: any): JSX.Element => (
-    <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
-  ),
-},
-{
-  header: 'Date',
-  accessor: 'date',
-  render: (data: any): JSX.Element => (
-    <Text>{data}</Text>
-  ),
-},
-{
-  header: 'Manufacturer',
-  accessor: 'manufacturer',
-  render: (data: any) => (
-    <Text>{data}</Text>
-  ),
-},
-{
-  header: 'Status',
-  accessor: 'status',
-  render: (data: any) => (
-    <Badge padding="1">{data}</Badge>
-  ),
-},
-{
-  header: 'Quantity',
-  accessor: 'quantity',
-  render: (data: any) => (
-    <Text>{data}</Text>
-  ),
-},
-{
-  header: 'Started on',
-  accessor: 'startDate',
-  render: (data: any) => (
-    <Text>{data}</Text>
-  ),
-},
+const tableHeaders = [
+  {
+    title: 'Order',
+    accessor: 'id',
+    render: (data: any): JSX.Element => (
+      <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
+    ),
+  },
+  {
+    title: 'Date',
+    accessor: 'date',
+  },
+  {
+    title: 'Manufacturer',
+    accessor: 'manufacturer',
+  },
+  {
+    title: 'Status',
+    accessor: 'status',
+    render: (data: any) => (
+      <Badge padding="1">{data}</Badge>
+    ),
+  },
+  {
+    title: 'Quantity',
+    accessor: 'quantity',
+  },
+  {
+    title: 'Started on',
+    accessor: 'startDate',
+  },
 ];
 
 export default function ProductionOrders() {

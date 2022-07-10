@@ -5,9 +5,9 @@ import {
 } from '@chakra-ui/react';
 
 interface Header {
-  header: string
+  title: string
   accessor: string
-  render: (data: any) => JSX.Element
+  render?: (data: any) => JSX.Element
 }
 interface Row {
   id: string | number
@@ -39,25 +39,25 @@ export default function CustomTable({ headers, datasource }: CustomTableProps) {
         <Thead>
           <Tr>
             {
-              headers.map(({ accessor, header }) => (
-                <Th key={accessor}>
-                  <Text>{header}</Text>
-                </Th>
+              headers.map((header) => (
+                <Th key={header.accessor}>{header.title}</Th>
               ))
             }
           </Tr>
         </Thead>
         <Tbody>
           {
-            datasource.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((dataRow) => (
-              <Tr key={dataRow.id}>
-                {Object.keys(dataRow).map((key) => {
-                  const header = headers.find((h) => h.accessor === key);
-                  if (header) {
-                    const cell = dataRow[key as keyof typeof dataRow];
+            datasource.slice((page - 1) * rowsPerPage, page * rowsPerPage).map((data) => (
+              <Tr key={data.id}>
+                {headers.map((header) => {
+                  if (Object.keys(data).find((key) => key === header.accessor)) {
                     return (
-                      <Td key={key}>
-                        {header.render(cell)}
+                      <Td key={`${header.accessor}${data.id}`}>
+                        {
+                          header.render
+                            ? header.render(data[header.accessor as keyof typeof data])
+                            : data[header.accessor as keyof typeof data]
+                        }
                       </Td>
                     );
                   }
