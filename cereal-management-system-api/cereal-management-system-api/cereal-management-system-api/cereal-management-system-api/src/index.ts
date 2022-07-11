@@ -1,6 +1,7 @@
 import express from 'express';
 import productsRouter from './controllers/products';
 import productionOrdersRouter from './controllers/productionOrders';
+import rawsRouter from './controllers/raws';
 
 import cors from 'cors';
 
@@ -17,6 +18,7 @@ app.get('/ping', (_req, res) => {
 
 app.use('/api/products', productsRouter);
 app.use('/api/productionOrders', productionOrdersRouter);
+app.use('/api/raws', rawsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);

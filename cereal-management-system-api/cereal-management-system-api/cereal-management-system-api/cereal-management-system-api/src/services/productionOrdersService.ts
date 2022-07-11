@@ -1,4 +1,4 @@
-import productionOrdersData from '../../data/productionOrdersData.json';
+import productionOrdersData from '../../data/productionOrders.json';
 import { NewProductionOrder, ProductionOrder } from '../../types';
 
 const productionOrders: Array<ProductionOrder> = productionOrdersData;
