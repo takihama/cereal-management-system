@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/src/index.js",
     "dev": "ts-node-dev src/index.ts",
-    "postinstall": "npm run build",
+    "postinstall": "npm run build && mv -i -v build dist/ && rm -v -rf src",
     "lint": "eslint --ext .ts .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
