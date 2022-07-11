@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouteLink } from 'react-router-dom';
 import {
   Badge, Box, Link, Stack, Text, useDisclosure,
@@ -10,7 +10,8 @@ import Header from '../../components/header/Header';
 import CreateProductionModal from '../../components/modals/production/CreateProductionModal';
 import ImportModal from '../../components/modals/ImportModal';
 import CustomTable from '../../components/table/CustomTable';
-import { ProductionOrder } from '../../types';
+import { NewProductionOrder, ProductionOrder } from '../../types';
+import productionOrdersService from '../../services/productionOrders';
 
 interface ProductionOrdersState {
   searchProductionOrder: string
@@ -19,19 +20,23 @@ interface ProductionOrdersState {
 
 const tableHeaders = [
   {
-    title: 'Order',
+    title: 'Code',
     accessor: 'code',
     render: (data: any): JSX.Element => (
       <Link as={RouteLink} to={data}><Text>{data}</Text></Link>
     ),
   },
   {
-    title: 'Date',
-    accessor: 'date',
-  },
-  {
     title: 'Manufacturer',
     accessor: 'manufacturer',
+  },
+  {
+    title: 'Description',
+    accessor: 'description',
+  },
+  {
+    title: 'Date',
+    accessor: 'date',
   },
   {
     title: 'Status',
@@ -39,10 +44,6 @@ const tableHeaders = [
     render: (data: any) => (
       <Badge padding="1">{data}</Badge>
     ),
-  },
-  {
-    title: 'Quantity',
-    accessor: 'quantity',
   },
   {
     title: 'Started on',
@@ -65,22 +66,40 @@ export default function ProductionOrders() {
   const handleImportProductionOrders = () => {
     onImportOpen();
   };
-  const createProductionOrder = (productionOrder: ProductionOrder) => {
-    setProductionOrders(productionOrders.concat(productionOrder));
+
+  const createProductionOrder = (productionOrder: NewProductionOrder) => {
+    productionOrdersService
+      .create(productionOrder)
+      .then((savedProductionOrder) => {
+        setProductionOrders(productionOrders.concat(savedProductionOrder));
+      });
   };
+
   const importProductionOrders = () => {
   };
-  const headerButtons = [{
-    name: 'Create',
-    icon: BsPlus,
-    onClick: handleCreateProductionOrder,
-  },
-  {
-    name: 'Import',
-    icon: BiImport,
-    onClick: handleImportProductionOrders,
-  },
+
+  const headerButtons = [
+    {
+      name: 'Create',
+      icon: BsPlus,
+      onClick: handleCreateProductionOrder,
+    },
+    {
+      name: 'Import',
+      icon: BiImport,
+      onClick: handleImportProductionOrders,
+    },
   ];
+
+  useEffect(() => {
+    productionOrdersService
+      .getAll()
+      .then((storedProductionOrders) => {
+        setProductionOrders(storedProductionOrders);
+      })
+      .catch((err) => console.log(err.message));
+  }, []);
+
   return (
     <Stack width="full">
       <Header

@@ -4,24 +4,20 @@ import {
   ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text,
 } from '@chakra-ui/react';
 import { AiOutlineTool } from 'react-icons/ai';
-import { ProductionOrder } from '../../../types';
+import { NewProductionOrder } from '../../../types';
 
 interface CreateProductionModalProps {
-  onCreateProduction: (product: ProductionOrder) => void
+  onCreateProduction: (product: NewProductionOrder) => void
   isOpen: boolean
   onClose: () => void
 }
 export default function CreateProductionModal(
   { onCreateProduction, isOpen, onClose }: CreateProductionModalProps,
 ) {
-  const [productionInputValues, setProductionInputValues] = useState<ProductionOrder>({
-    id: 0,
+  const [productionInputValues, setProductionInputValues] = useState<NewProductionOrder>({
     code: '',
     manufacturer: '',
     description: '',
-    date: '',
-    status: 'draft',
-    startedOn: '',
   });
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductionInputValues({
@@ -32,13 +28,9 @@ export default function CreateProductionModal(
   const handleOnCreate = () => {
     onCreateProduction(productionInputValues);
     setProductionInputValues({
-      id: 0,
       code: '',
       manufacturer: '',
       description: '',
-      date: '',
-      status: 'draft',
-      startedOn: '',
     });
     onClose();
   };
@@ -87,16 +79,6 @@ export default function CreateProductionModal(
               name="description"
               type="text"
               value={productionInputValues.description}
-              onChange={handleInputChanges}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="date">Date</FormLabel>
-            <Input
-              id="date"
-              name="date"
-              type="text"
-              value={productionInputValues.date}
               onChange={handleInputChanges}
             />
           </FormControl>

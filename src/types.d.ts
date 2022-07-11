@@ -24,5 +24,5 @@ export interface Raw {
 }
 
 export type NewProduct = Omit<Product, 'id'>;
-export type NewProductionOrder = Omit<ProductionOrder, 'id'>;
+export type NewProductionOrder = Pick<ProductionOrder, 'code' | 'manufacturer' | 'description'>;
 export type NewRaw = Omit<Raw, 'id'>;
