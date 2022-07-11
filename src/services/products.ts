@@ -21,10 +21,10 @@ const create = (product: NewProduct) => (
     .then((response) => response.data)
 );
 
-const productService = {
+const productsService = {
   create,
   get,
   getAll,
 };
 
-export default productService;
+export default productsService;

@@ -5,21 +5,19 @@ import {
   Stack, Text,
 } from '@chakra-ui/react';
 import { FaBoxOpen } from 'react-icons/fa';
-import { Product } from '../../../types';
+import { NewProduct } from '../../../types';
 
 interface CreateProductModalProps {
-  onCreateProduct: (product: Product) => void
+  onCreateProduct: (product: NewProduct) => void
   isOpen: boolean
   onClose: () => void
 }
 export default function CreateProductModal({
   onCreateProduct, isOpen, onClose,
 }: CreateProductModalProps) {
-  const [productInputValues, setProductInputValues] = useState<Product>({
-    id: 0,
+  const [productInputValues, setProductInputValues] = useState<NewProduct>({
     name: '',
     code: '',
-    image: '',
     description: '',
   });
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +29,8 @@ export default function CreateProductModal({
   const handleOnCreate = () => {
     onCreateProduct(productInputValues);
     setProductInputValues({
-      id: 0,
       name: '',
       code: '',
-      image: '',
       description: '',
     });
     onClose();
@@ -60,16 +56,12 @@ export default function CreateProductModal({
         </ModalHeader>
         <ModalBody>
           <FormControl>
-            <FormLabel htmlFor="name">Product name</FormLabel>
-            <Input id="name" name="name" type="text" value={productInputValues.name} ref={initialRef} onChange={handleInputChanges} />
+            <FormLabel htmlFor="code">Code</FormLabel>
+            <Input id="code" name="code" type="text" value={productInputValues.code} ref={initialRef} onChange={handleInputChanges} />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="code">Product code</FormLabel>
-            <Input id="code" name="code" type="text" value={productInputValues.code} onChange={handleInputChanges} />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="image">Image</FormLabel>
-            <Input id="image" name="image" type="text" value={productInputValues.image} onChange={handleInputChanges} />
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <Input id="name" name="name" type="text" value={productInputValues.name} onChange={handleInputChanges} />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="description">Description</FormLabel>
