@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "build": "tsc",
-    "start": "node dist/src/index.ts",
+    "start": "node dist/src/index.js",
     "dev": "ts-node-dev src/index.ts",
     "postinstall": "npm run build",
     "lint": "eslint --ext .ts .",
