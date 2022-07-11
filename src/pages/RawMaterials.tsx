@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Stack, useDisclosure } from '@chakra-ui/react';
 import { GiWoodPile } from 'react-icons/gi';
 import { BsPlus } from 'react-icons/bs';
 import { BiImport } from 'react-icons/bi';
 import Header from '../components/header/Header';
 import CreateRawMaterialModal from '../components/modals/raws/CreateRawModal';
-import { Raw } from '../types';
+import { NewRaw, Raw } from '../types';
 import CustomTable from '../components/table/CustomTable';
+import rawsService from '../services/raws';
 
 interface RawMaterialsState {
   rawMaterials: Array<Raw>
@@ -39,20 +40,38 @@ export default function RawMaterials() {
   const handleImportRawMaterials = () => {
     console.log('handleImportRawMaterials');
   };
-  const createRawMaterial = (rawMaterial: Raw) => {
-    setRawMaterials(rawMaterials.concat(rawMaterial));
+
+  const createRawMaterial = (rawMaterial: NewRaw) => {
+    rawsService
+      .create(rawMaterial)
+      .then((savedRaw: Raw) => {
+        setRawMaterials(rawMaterials.concat(savedRaw));
+      })
+      .catch((err) => console.log(err.message));
   };
-  const headerButtons = [{
-    name: 'Create',
-    icon: BsPlus,
-    onClick: handleCreateRawMaterial,
-  },
-  {
-    name: 'Import',
-    icon: BiImport,
-    onClick: handleImportRawMaterials,
-  },
+
+  const headerButtons = [
+    {
+      name: 'Create',
+      icon: BsPlus,
+      onClick: handleCreateRawMaterial,
+    },
+    {
+      name: 'Import',
+      icon: BiImport,
+      onClick: handleImportRawMaterials,
+    },
   ];
+
+  useEffect(() => {
+    rawsService
+      .getAll()
+      .then((storedRaws: Array<Raw>) => {
+        setRawMaterials(storedRaws);
+      })
+      .catch((err) => console.log(err.message));
+  }, []);
+
   return (
     <Stack width="full">
       <Header

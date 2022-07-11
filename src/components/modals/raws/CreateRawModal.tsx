@@ -4,18 +4,17 @@ import {
   ModalFooter, ModalHeader, ModalOverlay, Stack, Text,
 } from '@chakra-ui/react';
 import { GiWoodPile } from 'react-icons/gi';
-import { Raw } from '../../../types';
+import { NewRaw } from '../../../types';
 
 interface CreateRawMaterialModalProps {
-  onCreateRaw: (raw: Raw) => void
+  onCreateRaw: (raw: NewRaw) => void
   isOpen: boolean
   onClose: () => void
 }
 export default function CreateRawMaterialModal({
   onCreateRaw, isOpen, onClose,
 }: CreateRawMaterialModalProps) {
-  const [rawInputValues, setProductInputValues] = useState<Raw>({
-    id: 0,
+  const [rawInputValues, setProductInputValues] = useState<NewRaw>({
     name: '',
     code: '',
     description: '',
@@ -29,7 +28,6 @@ export default function CreateRawMaterialModal({
   const handleOnCreate = () => {
     onCreateRaw(rawInputValues);
     setProductInputValues({
-      id: 0,
       name: '',
       code: '',
       description: '',
@@ -57,12 +55,12 @@ export default function CreateRawMaterialModal({
         </ModalHeader>
         <ModalBody>
           <FormControl>
-            <FormLabel htmlFor="name">Raw material name</FormLabel>
-            <Input id="name" name="name" type="text" value={rawInputValues.name} ref={initialRef} onChange={handleInputChanges} />
+            <FormLabel htmlFor="code">Code</FormLabel>
+            <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="code">Raw material code</FormLabel>
-            <Input id="code" name="code" type="text" value={rawInputValues.code} onChange={handleInputChanges} />
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <Input id="name" name="name" type="text" value={rawInputValues.name} onChange={handleInputChanges} />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="description">Description</FormLabel>
