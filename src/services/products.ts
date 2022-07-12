@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NewProduct } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/products';
+const baseUrl = '/api/products';
 
 const getAll = () => (
   axios

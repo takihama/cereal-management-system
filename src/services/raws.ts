@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NewRaw } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/raws';
+const baseUrl = '/api/raws';
 
 const getAll = () => (
   axios
