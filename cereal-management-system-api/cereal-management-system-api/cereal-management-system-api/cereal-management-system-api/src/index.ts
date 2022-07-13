@@ -13,8 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const publicPath = path.join(__dirname, '..', 'build');
-app.use(express.static(publicPath));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 const PORT = process.env.PORT || 3001;
 
@@ -26,6 +25,14 @@ app.get('/ping', (_req, res) => {
 app.use('/api/products', productsRouter);
 app.use('/api/productionOrders', productionOrdersRouter);
 app.use('/api/raws', rawsRouter);
+
+app.get('/*', (_req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
