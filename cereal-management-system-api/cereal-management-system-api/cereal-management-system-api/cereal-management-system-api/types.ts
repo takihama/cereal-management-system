@@ -1,28 +1,35 @@
-export interface ProductionOrder {
+export interface Raw {
   id: number
   code: string
-  manufacturer: string
-  description?: string
-  date: string
-  status: string
-  startedOn?: string
+  type: string
+  description: string
 }
 
 export interface Product {
   id: number
-  name: string
   code: string
+  name: string
+  description?: string
   image?: string
-  description: string
+  raws?: Array<Raw>
 }
 
-export interface Raw {
+export interface ProductionOrder {
   id: number
-  name: string
   code: string
-  description: string
+  client: string
+  description?: string
+  programmedDate?: string
+  programmedQuantity?: number
+  notes?: string
+  status: string
+  products?: Array<Product>
+  startedOn?: string
+  finishedOn?: string
+  acceptedProducts?: number
+  rejectedProducts?: number
 }
 
 export type NewProduct = Omit<Product, 'id'>;
-export type NewProductionOrder = Pick<ProductionOrder, 'code' | 'manufacturer' | 'description'>;
+export type NewProductionOrder = Omit<ProductionOrder, 'id' | 'status'>;
 export type NewRaw = Omit<Raw, 'id'>;

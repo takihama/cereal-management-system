@@ -1,27 +1,25 @@
-import productionOrdersData from '../../data/productionOrders.json';
+import productionOrdersData from '../../data/productionOrders';
 import { NewProductionOrder, ProductionOrder } from '../../types';
 
-const productionOrders: Array<ProductionOrder> = productionOrdersData;
-
 const getEntries = (): Array<ProductionOrder> => {
-  return productionOrders;
+  return productionOrdersData;
 };
 
 const addProductionOrder = (entry: NewProductionOrder) => {
   const newProductionOrder = {
-    id: Math.max(...productionOrders.map(d => d.id)) + 1,
+    id: Math.max(...productionOrdersData.map(d => d.id)) + 1,
     date: Date.now().toLocaleString(),
-    status: 'DRAFT',
+    status: 'draft',
     ...entry
   };
 
-  productionOrders.push(newProductionOrder);
+  productionOrdersData.push(newProductionOrder);
   return newProductionOrder;
 };
 
 
 const findById = (id: number): ProductionOrder | undefined => {
-  const entry = productionOrders.find(po => po.id === id);
+  const entry = productionOrdersData.find(po => po.id === id);
   return entry;
 };
 

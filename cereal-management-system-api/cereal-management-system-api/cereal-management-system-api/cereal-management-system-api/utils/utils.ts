@@ -24,23 +24,23 @@ const toNewProduct = ({ name, code, description }: ProductFields): NewProduct =>
   return newEntry;
 };
 
-type ProductionOrderFields = { code: unknown, manufacturer: unknown, description: unknown };
-const toNewProductionOrder = ({ code, manufacturer, description }: ProductionOrderFields): NewProductionOrder => {
+type ProductionOrderFields = { code: unknown, client: unknown, description: unknown };
+const toNewProductionOrder = ({ code, client, description }: ProductionOrderFields): NewProductionOrder => {
   const newEntry: NewProductionOrder = {
     code: parseString(code),
-    manufacturer: parseString(manufacturer),
+    client: parseString(client),
     description: parseString(description)
   };
 
   return newEntry;
 };
 
-type RawFields = { name: unknown, code: unknown, description: unknown };
-const toNewRaw = ({ name, code, description }: RawFields): NewRaw => {
+type RawFields = { code: unknown, description: unknown, type: unknown };
+const toNewRaw = ({ code, description, type }: RawFields): NewRaw => {
   const newEntry: NewRaw = {
-    name: parseString(name),
     code: parseString(code),
-    description: parseString(description)
+    description: parseString(description),
+    type: parseString(type)
   };
 
   return newEntry;

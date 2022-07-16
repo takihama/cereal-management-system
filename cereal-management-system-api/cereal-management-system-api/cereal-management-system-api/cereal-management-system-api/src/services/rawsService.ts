@@ -1,24 +1,22 @@
-import rawsData from '../../data/raws.json';
+import rawsData from '../../data/raws';
 import { NewRaw, Raw } from '../../types';
 
-const raws: Array<Raw> = rawsData;
-
 const getEntries = (): Array<Raw> => {
-  return raws;
+  return rawsData;
 };
 
 const addRaw = (entry: NewRaw) => {
   const newRaw = {
-    id: Math.max(...raws.map(d => d.id)) + 1,
+    id: Math.max(...rawsData.map(d => d.id)) + 1,
     ...entry
   };
 
-  raws.push(newRaw);
+  rawsData.push(newRaw);
   return newRaw;
 };
 
 const findById = (id: number): Raw | undefined => {
-  const entry = raws.find(p => p.id === id);
+  const entry = rawsData.find(p => p.id === id);
   return entry;
 };
 
