@@ -16,8 +16,9 @@ export default function CreateProductionModal(
 ) {
   const [productionInputValues, setProductionInputValues] = useState<NewProductionOrder>({
     code: '',
-    manufacturer: '',
+    client: '',
     description: '',
+    status: 'draft',
   });
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductionInputValues({
@@ -29,8 +30,9 @@ export default function CreateProductionModal(
     onCreateProduction(productionInputValues);
     setProductionInputValues({
       code: '',
-      manufacturer: '',
+      client: '',
       description: '',
+      status: 'draft',
     });
     onClose();
   };
@@ -65,10 +67,10 @@ export default function CreateProductionModal(
           <FormControl>
             <FormLabel htmlFor="manufacturer">Manufacturer</FormLabel>
             <Input
-              id="manufacturer"
-              name="manufacturer"
+              id="client"
+              name="client"
               type="text"
-              value={productionInputValues.manufacturer}
+              value={productionInputValues.client}
               onChange={handleInputChanges}
             />
           </FormControl>

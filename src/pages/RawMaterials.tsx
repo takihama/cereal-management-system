@@ -19,12 +19,12 @@ const tableHeaders = [
     accessor: 'code',
   },
   {
-    title: 'Name',
-    accessor: 'name',
-  },
-  {
     title: 'Description',
     accessor: 'description',
+  },
+  {
+    title: 'Tipo',
+    accessor: 'type',
   },
 ];
 export default function RawMaterials() {

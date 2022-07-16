@@ -15,8 +15,8 @@ export default function CreateRawMaterialModal({
   onCreateRaw, isOpen, onClose,
 }: CreateRawMaterialModalProps) {
   const [rawInputValues, setProductInputValues] = useState<NewRaw>({
-    name: '',
     code: '',
+    type: '',
     description: '',
   });
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,7 @@ export default function CreateRawMaterialModal({
   const handleOnCreate = () => {
     onCreateRaw(rawInputValues);
     setProductInputValues({
-      name: '',
+      type: '',
       code: '',
       description: '',
     });
@@ -59,12 +59,12 @@ export default function CreateRawMaterialModal({
             <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <Input id="name" name="name" type="text" value={rawInputValues.name} onChange={handleInputChanges} />
-          </FormControl>
-          <FormControl>
             <FormLabel htmlFor="description">Description</FormLabel>
             <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="type">Tipo</FormLabel>
+            <Input id="type" name="type" type="text" value={rawInputValues.type} onChange={handleInputChanges} />
           </FormControl>
         </ModalBody>
         <ModalFooter>
