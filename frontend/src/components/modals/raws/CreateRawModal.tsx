@@ -1,10 +1,16 @@
 import React, { useRef, useState } from 'react';
 import {
   Button, FormControl, FormLabel, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent,
-  ModalFooter, ModalHeader, ModalOverlay, Stack, Text,
+  ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text,
 } from '@chakra-ui/react';
 import { GiWoodPile } from 'react-icons/gi';
 import { NewRaw } from '../../../types';
+
+const initialRaw: NewRaw = {
+  code: '',
+  type: '',
+  description: '',
+};
 
 interface CreateRawMaterialModalProps {
   onCreateRaw: (raw: NewRaw) => void
@@ -14,27 +20,29 @@ interface CreateRawMaterialModalProps {
 export default function CreateRawMaterialModal({
   onCreateRaw, isOpen, onClose,
 }: CreateRawMaterialModalProps) {
-  const [rawInputValues, setProductInputValues] = useState<NewRaw>({
-    code: '',
-    type: '',
-    description: '',
-  });
+  const initialRef = useRef<HTMLInputElement>(null);
+  const [rawInputValues, setProductInputValues] = useState<NewRaw>(initialRaw);
+
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductInputValues({
       ...rawInputValues,
       [evt.target.name]: evt.target.value,
     });
   };
+
+  const handleSelectChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+    setProductInputValues({
+      ...rawInputValues,
+      type: evt.target.value,
+    });
+  };
+
   const handleOnCreate = () => {
     onCreateRaw(rawInputValues);
-    setProductInputValues({
-      type: '',
-      code: '',
-      description: '',
-    });
+    setProductInputValues(initialRaw);
     onClose();
   };
-  const initialRef = useRef<HTMLInputElement>(null);
+
   return (
     <Modal
       initialFocusRef={initialRef}
@@ -64,7 +72,10 @@ export default function CreateRawMaterialModal({
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="type">Tipo</FormLabel>
-            <Input id="type" name="type" type="text" value={rawInputValues.type} onChange={handleInputChanges} />
+            <Select id="type" name="type" onChange={handleSelectChange}>
+              <option value="bulk">Bulk</option>
+              <option value="package">Package</option>
+            </Select>
           </FormControl>
         </ModalBody>
         <ModalFooter>
