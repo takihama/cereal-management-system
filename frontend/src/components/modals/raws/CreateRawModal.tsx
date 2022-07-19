@@ -1,10 +1,17 @@
 import React, { useRef, useState } from 'react';
 import {
-  Button, FormControl, FormLabel, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent,
-  ModalFooter, ModalHeader, ModalOverlay, Stack, Text,
+  Button, FormControl, FormErrorMessage, FormLabel,
+  Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent,
+  ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text,
 } from '@chakra-ui/react';
 import { GiWoodPile } from 'react-icons/gi';
 import { NewRaw } from '../../../types';
+
+const initialRaw: NewRaw = {
+  code: '',
+  type: '',
+  description: '',
+};
 
 interface CreateRawMaterialModalProps {
   onCreateRaw: (raw: NewRaw) => void
@@ -14,32 +21,43 @@ interface CreateRawMaterialModalProps {
 export default function CreateRawMaterialModal({
   onCreateRaw, isOpen, onClose,
 }: CreateRawMaterialModalProps) {
-  const [rawInputValues, setProductInputValues] = useState<NewRaw>({
-    code: '',
-    type: '',
-    description: '',
-  });
+  const initialRef = useRef<HTMLInputElement>(null);
+  const [rawInputValues, setProductInputValues] = useState<NewRaw>(initialRaw);
+
+  const isError = (input: string) => input === '';
+
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductInputValues({
       ...rawInputValues,
       [evt.target.name]: evt.target.value,
     });
   };
-  const handleOnCreate = () => {
-    onCreateRaw(rawInputValues);
+
+  const handleSelectChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
     setProductInputValues({
-      type: '',
-      code: '',
-      description: '',
+      ...rawInputValues,
+      type: evt.target.value,
     });
+  };
+
+  const handleOnCreate = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    onCreateRaw(rawInputValues);
+    setProductInputValues(initialRaw);
     onClose();
   };
-  const initialRef = useRef<HTMLInputElement>(null);
+
+  const handleOnCancel = () => {
+    setProductInputValues(initialRaw);
+    onClose();
+  };
+
   return (
     <Modal
       initialFocusRef={initialRef}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleOnCancel}
     >
       <ModalOverlay />
       <ModalContent>
@@ -53,30 +71,41 @@ export default function CreateRawMaterialModal({
           </Stack>
           <ModalCloseButton />
         </ModalHeader>
-        <ModalBody>
-          <FormControl>
-            <FormLabel htmlFor="code">Code</FormLabel>
-            <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="description">Description</FormLabel>
-            <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="type">Tipo</FormLabel>
-            <Input id="type" name="type" type="text" value={rawInputValues.type} onChange={handleInputChanges} />
-          </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Stack direction="row" spacing="4">
-            <Button onClick={handleOnCreate}>
-              Create
-            </Button>
-            <Button onClick={onClose} variant="cancel">
-              Cancel
-            </Button>
-          </Stack>
-        </ModalFooter>
+        <form onSubmit={handleOnCreate}>
+          <ModalBody>
+            <FormControl isInvalid={isError(rawInputValues.code)}>
+              <FormLabel htmlFor="code">Code</FormLabel>
+              <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} isRequired />
+              <FormErrorMessage>Code is required.</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isError(rawInputValues.description)}>
+              <FormLabel htmlFor="description">Description</FormLabel>
+              <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} isRequired />
+              <FormErrorMessage>Description is required.</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isError(rawInputValues.type)}>
+              <FormLabel htmlFor="type">Type</FormLabel>
+              <Select id="type" name="type" placeholder="Select raw type" onChange={handleSelectChange} isRequired>
+                <option value="bulk">Bulk</option>
+                <option value="primaryPackage">Primary package</option>
+                <option value="secondaryPackage">Secondary package</option>
+              </Select>
+              <FormErrorMessage>Type is required.</FormErrorMessage>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Stack direction="row" spacing="4">
+              <Button type="submit">
+                Create
+              </Button>
+              <Button onClick={handleOnCancel} variant="cancel">
+                Cancel
+              </Button>
+            </Stack>
+          </ModalFooter>
+        </form>
       </ModalContent>
     </Modal>
   );
