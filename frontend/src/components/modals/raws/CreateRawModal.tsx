@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import {
-  Button, FormControl, FormLabel, Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent,
+  Button, FormControl, FormErrorMessage, FormLabel,
+  Icon, Input, Modal, ModalBody, ModalCloseButton, ModalContent,
   ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text,
 } from '@chakra-ui/react';
 import { GiWoodPile } from 'react-icons/gi';
@@ -23,6 +24,8 @@ export default function CreateRawMaterialModal({
   const initialRef = useRef<HTMLInputElement>(null);
   const [rawInputValues, setProductInputValues] = useState<NewRaw>(initialRaw);
 
+  const isError = (input: string) => input === '';
+
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductInputValues({
       ...rawInputValues,
@@ -37,8 +40,15 @@ export default function CreateRawMaterialModal({
     });
   };
 
-  const handleOnCreate = () => {
+  const handleOnCreate = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     onCreateRaw(rawInputValues);
+    setProductInputValues(initialRaw);
+    onClose();
+  };
+
+  const handleOnCancel = () => {
     setProductInputValues(initialRaw);
     onClose();
   };
@@ -47,7 +57,7 @@ export default function CreateRawMaterialModal({
     <Modal
       initialFocusRef={initialRef}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleOnCancel}
     >
       <ModalOverlay />
       <ModalContent>
@@ -61,33 +71,41 @@ export default function CreateRawMaterialModal({
           </Stack>
           <ModalCloseButton />
         </ModalHeader>
-        <ModalBody>
-          <FormControl>
-            <FormLabel htmlFor="code">Code</FormLabel>
-            <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="description">Description</FormLabel>
-            <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="type">Tipo</FormLabel>
-            <Select id="type" name="type" onChange={handleSelectChange}>
-              <option value="bulk">Bulk</option>
-              <option value="package">Package</option>
-            </Select>
-          </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Stack direction="row" spacing="4">
-            <Button onClick={handleOnCreate}>
-              Create
-            </Button>
-            <Button onClick={onClose} variant="cancel">
-              Cancel
-            </Button>
-          </Stack>
-        </ModalFooter>
+        <form onSubmit={handleOnCreate}>
+          <ModalBody>
+            <FormControl isInvalid={isError(rawInputValues.code)}>
+              <FormLabel htmlFor="code">Code</FormLabel>
+              <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} />
+              <FormErrorMessage>Code is required.</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isError(rawInputValues.description)}>
+              <FormLabel htmlFor="description">Description</FormLabel>
+              <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} />
+              <FormErrorMessage>Description is required.</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={isError(rawInputValues.type)}>
+              <FormLabel htmlFor="type">Type</FormLabel>
+              <Select id="type" name="type" placeholder="Select raw type" onChange={handleSelectChange}>
+                <option value="bulk">Bulk</option>
+                <option value="primaryPackage">Primary package</option>
+                <option value="secondaryPackage">Secondary package</option>
+              </Select>
+              <FormErrorMessage>Type is required.</FormErrorMessage>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Stack direction="row" spacing="4">
+              <Button type="submit">
+                Create
+              </Button>
+              <Button onClick={handleOnCancel} variant="cancel">
+                Cancel
+              </Button>
+            </Stack>
+          </ModalFooter>
+        </form>
       </ModalContent>
     </Modal>
   );
