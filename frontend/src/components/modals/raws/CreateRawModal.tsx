@@ -75,19 +75,19 @@ export default function CreateRawMaterialModal({
           <ModalBody>
             <FormControl isInvalid={isError(rawInputValues.code)}>
               <FormLabel htmlFor="code">Code</FormLabel>
-              <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} />
+              <Input id="code" name="code" type="text" value={rawInputValues.code} ref={initialRef} onChange={handleInputChanges} isRequired />
               <FormErrorMessage>Code is required.</FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={isError(rawInputValues.description)}>
               <FormLabel htmlFor="description">Description</FormLabel>
-              <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} />
+              <Input id="description" name="description" type="text" value={rawInputValues.description} onChange={handleInputChanges} isRequired />
               <FormErrorMessage>Description is required.</FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={isError(rawInputValues.type)}>
               <FormLabel htmlFor="type">Type</FormLabel>
-              <Select id="type" name="type" placeholder="Select raw type" onChange={handleSelectChange}>
+              <Select id="type" name="type" placeholder="Select raw type" onChange={handleSelectChange} isRequired>
                 <option value="bulk">Bulk</option>
                 <option value="primaryPackage">Primary package</option>
                 <option value="secondaryPackage">Secondary package</option>
