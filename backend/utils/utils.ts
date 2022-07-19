@@ -35,12 +35,12 @@ const toNewProductionOrder = ({ code, client, description }: ProductionOrderFiel
   return newEntry;
 };
 
-type RawFields = { code: unknown, description: unknown, type: unknown };
-const toNewRaw = ({ code, description, type }: RawFields): NewRaw => {
+type RawFields = { code: unknown, type: unknown, description: unknown };
+const toNewRaw = ({ code, type, description }: RawFields): NewRaw => {
   const newEntry: NewRaw = {
     code: parseString(code),
+    type: parseString(type),
     description: parseString(description),
-    type: parseString(type)
   };
 
   return newEntry;
