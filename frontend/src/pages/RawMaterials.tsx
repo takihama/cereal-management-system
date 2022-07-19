@@ -23,20 +23,23 @@ const tableHeaders = [
     accessor: 'description',
   },
   {
-    title: 'Tipo',
+    title: 'Type',
     accessor: 'type',
   },
 ];
 export default function RawMaterials() {
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const [rawMaterials, setRawMaterials] = useState<RawMaterialsState['rawMaterials']>([]);
-  const [searchRawMaterials, setSearchRawMaterials] = useState<RawMaterialsState['searchRawMaterials']>('');
-  const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchRawMaterials(evt.target.value);
+  const [searchRawCode, setSearchRawCode] = useState<RawMaterialsState['searchRawMaterials']>('');
+
+  const handleSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchRawCode(evt.target.value);
   };
+
   const handleCreateRawMaterial = () => {
     onCreateOpen();
   };
+
   const handleImportRawMaterials = () => {
     console.log('handleImportRawMaterials');
   };
@@ -78,10 +81,10 @@ export default function RawMaterials() {
         title="Raws"
         icon={GiWoodPile}
         search={{
-          name: 'searchProduct',
-          value: searchRawMaterials,
-          placeholder: 'Filter by raw material',
-          onChange: onSearchChange,
+          name: 'searchRawCode',
+          value: searchRawCode,
+          placeholder: 'Filter by raw code',
+          onChange: handleSearchChange,
         }}
         buttons={headerButtons}
       />
@@ -89,7 +92,8 @@ export default function RawMaterials() {
         <Box bg="white">
           <CustomTable
             headers={tableHeaders}
-            datasource={rawMaterials}
+            datasource={rawMaterials
+              .filter((raw) => raw.code.toLowerCase().includes(searchRawCode.toLowerCase()))}
           />
         </Box>
       </Box>
