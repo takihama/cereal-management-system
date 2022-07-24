@@ -5,13 +5,20 @@ export interface Raw {
   description: string
 }
 
+export interface ProductRaw {
+  id: number | string
+  raw: Raw
+  quantity: number
+  unit: 'g' | 'kg' | 'un'
+}
+
 export interface Product {
   id: number
   code: string
   name: string
   description?: string
   image?: string
-  raws?: Array<Raw>
+  raws: Array<Raw>
 }
 
 export interface ProductionOrder {
