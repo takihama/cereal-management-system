@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   Button, FormControl, FormErrorMessage, FormLabel, Icon, Input, Modal, ModalBody,
@@ -8,6 +8,7 @@ import { FaBoxOpen } from 'react-icons/fa';
 import { BsPlus } from 'react-icons/bs';
 import { BiTrashAlt } from 'react-icons/bi';
 import { NewProduct, ProductRaw, Raw } from '../../../types';
+import rawsService from '../../../services/raws';
 
 const initialProduct: NewProduct = {
   code: '',
@@ -33,21 +34,6 @@ const initialProductRaw: Array<ProductRaw> = [
   },
 ];
 
-const initialRawSelectOptions: Array<Raw> = [
-  {
-    id: 0,
-    code: 'A',
-    type: '',
-    description: '',
-  },
-  {
-    id: 1,
-    code: 'B',
-    type: '',
-    description: '',
-  },
-];
-
 interface CreateProductModalProps {
   onCreateProduct: (product: NewProduct) => void
   isOpen: boolean
@@ -59,12 +45,16 @@ export default function CreateProductModal({
 }: CreateProductModalProps) {
   const initialRef = useRef<HTMLInputElement>(null);
   const [productInputValues, setProductInputValues] = useState<NewProduct>(initialProduct);
-  const [rawSelectOptions] = useState<Array<Raw>>(initialRawSelectOptions);
+  const [rawSelectOptions, setRawSelectOptions] = useState<Array<Raw>>([]);
+
+  useEffect(() => {
+    rawsService.getAll().then((result) => {
+      setRawSelectOptions(result);
+    });
+  }, []);
 
   const isTextEmpty = (input: string | undefined) => !input || input === '';
   const isNumberInvalid = (input: number | undefined) => !input || Number.isNaN(input);
-
-  console.log(productInputValues);
 
   const handleProductInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductInputValues({
@@ -91,7 +81,7 @@ export default function CreateProductModal({
         ...prevState,
         raws: prevState.raws.map((raw, index) => (index !== idx ? raw : {
           ...raw,
-          raw: initialRawSelectOptions
+          raw: rawSelectOptions
             .find((rawOption) => rawOption.id === Number(evt.target.value)) || initialRaw,
         })),
       }));
@@ -189,6 +179,8 @@ export default function CreateProductModal({
                           {rawSelectOptions.map((rawOption: Raw) => (
                             <option key={rawOption.id} value={rawOption.id}>
                               {rawOption.code}
+                              -
+                              {rawOption.description}
                             </option>
                           ))}
                         </Select>
