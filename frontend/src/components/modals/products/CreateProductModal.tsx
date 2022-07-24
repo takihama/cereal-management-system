@@ -25,14 +25,12 @@ const initialRaw: Raw = {
   description: '',
 };
 
-const initialProductRaw: Array<ProductRaw> = [
-  {
-    id: 0,
-    raw: initialRaw,
-    quantity: 0,
-    unit: 'g',
-  },
-];
+const initialProductRaw: ProductRaw = {
+  id: 0,
+  raw: initialRaw,
+  quantity: 0,
+  unit: 'g',
+};
 
 interface CreateProductModalProps {
   onCreateProduct: (product: NewProduct) => void
