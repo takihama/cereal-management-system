@@ -1,8 +1,14 @@
 export interface Raw {
-  id: number
+  id: number | string
   code: string
   type: string
   description: string
+}
+
+export interface ProductRaw extends Raw {
+  rawId: number
+  quantity: number
+  unit: 'g' | 'kg' | 'un'
 }
 
 export interface Product {
@@ -11,7 +17,7 @@ export interface Product {
   name: string
   description?: string
   image?: string
-  raws?: Array<Raw>
+  raws: Array<ProductRaw>
 }
 
 export interface ProductionOrder {
@@ -30,6 +36,6 @@ export interface ProductionOrder {
   rejectedProducts?: number
 }
 
+export type NewRaw = Omit<Raw, 'id'>;
 export type NewProduct = Omit<Product, 'id'>;
 export type NewProductionOrder = Omit<ProductionOrder, 'id'>;
-export type NewRaw = Omit<Raw, 'id'>;
