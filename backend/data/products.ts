@@ -5,13 +5,15 @@ const productsData: Array<Product> = [
     id: 1,
     name: "Cornflakes",
     code: "CF01",
-    description: "Cornflakes"
+    description: "Cornflakes",
+    raws: []
   },
   {
     id: 2,
     name: "Cornflakes without sugar",
     code: "CFSF01",
-    description: "Cornflakes without sugar"
+    description: "Cornflakes without sugar",
+    raws: []
   }
 ];
 

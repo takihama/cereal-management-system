@@ -18,7 +18,7 @@ export interface Product {
   name: string
   description?: string
   image?: string
-  raws: Array<Raw>
+  raws: Array<ProductRaw>
 }
 
 export interface ProductionOrder {
