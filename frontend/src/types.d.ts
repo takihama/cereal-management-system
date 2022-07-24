@@ -1,12 +1,13 @@
 export interface Raw {
-  id: number | string
+  id: number
   code: string
   type: string
   description: string
 }
 
-export interface ProductRaw extends Raw {
-  rawId: number
+export interface ProductRaw {
+  id: number | string
+  raw: Raw
   quantity: number
   unit: 'g' | 'kg' | 'un'
 }

@@ -17,13 +17,17 @@ const initialProduct: NewProduct = {
   raws: [],
 };
 
+const initialRaw: Raw = {
+  id: -1,
+  code: '',
+  type: '',
+  description: '',
+};
+
 const initialProductRaw: Array<ProductRaw> = [
   {
     id: 0,
-    rawId: 0,
-    code: '',
-    type: '',
-    description: '',
+    raw: initialRaw,
     quantity: 0,
     unit: 'g',
   },
@@ -57,7 +61,10 @@ export default function CreateProductModal({
   const [productInputValues, setProductInputValues] = useState<NewProduct>(initialProduct);
   const [rawSelectOptions] = useState<Array<Raw>>(initialRawSelectOptions);
 
-  const isError = (input: string | undefined) => !input && input === '';
+  const isTextEmpty = (input: string | undefined) => !input || input === '';
+  const isNumberInvalid = (input: number | undefined) => !input || Number.isNaN(input);
+
+  console.log(productInputValues);
 
   const handleProductInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setProductInputValues({
@@ -67,12 +74,25 @@ export default function CreateProductModal({
   };
 
   const handleProductRawInputChanges = (idx: number) => (
-    (evt: React.ChangeEvent<HTMLInputElement>) => {
+    (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
       setProductInputValues((prevState) => ({
         ...prevState,
         raws: prevState.raws.map((raw, index) => (index !== idx ? raw : {
           ...raw,
           [evt.target.name]: evt.target.value,
+        })),
+      }));
+    }
+  );
+
+  const handleSelectProductRawChanges = (idx: number) => (
+    (evt: React.ChangeEvent<HTMLSelectElement>) => {
+      setProductInputValues((prevState) => ({
+        ...prevState,
+        raws: prevState.raws.map((raw, index) => (index !== idx ? raw : {
+          ...raw,
+          raw: initialRawSelectOptions
+            .find((rawOption) => rawOption.id === Number(evt.target.value)) || initialRaw,
         })),
       }));
     }
@@ -113,7 +133,7 @@ export default function CreateProductModal({
       initialFocusRef={initialRef}
       isOpen={isOpen}
       onClose={handleOnCancel}
-      size="xl"
+      size="2xl"
     >
       <ModalOverlay />
       <ModalContent>
@@ -129,15 +149,15 @@ export default function CreateProductModal({
         </ModalHeader>
         <form onSubmit={handleOnCreate}>
           <ModalBody>
-            <FormControl isInvalid={isError(productInputValues.code)}>
+            <FormControl isInvalid={isTextEmpty(productInputValues.code)}>
               <FormLabel htmlFor="code">Code</FormLabel>
-              <Input id="code" name="code" type="text" value={productInputValues.code} ref={initialRef} onChange={handleProductInputChanges} />
+              <Input id="code" name="code" type="text" value={productInputValues.code} ref={initialRef} onChange={handleProductInputChanges} isRequired />
               <FormErrorMessage>Code is required.</FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={isError(productInputValues.name)}>
+            <FormControl isInvalid={isTextEmpty(productInputValues.name)}>
               <FormLabel htmlFor="name">Name</FormLabel>
-              <Input id="name" name="name" type="text" value={productInputValues.name} onChange={handleProductInputChanges} />
+              <Input id="name" name="name" type="text" value={productInputValues.name} onChange={handleProductInputChanges} isRequired />
               <FormErrorMessage>Name is required.</FormErrorMessage>
             </FormControl>
 
@@ -148,41 +168,57 @@ export default function CreateProductModal({
 
             <FormControl>
               <FormLabel htmlFor="image">Image</FormLabel>
-              <Input id="image" name="image" type="text" value={productInputValues.description} onChange={handleProductInputChanges} />
+              <Input id="image" name="image" type="text" value={productInputValues.image} onChange={handleProductInputChanges} />
             </FormControl>
 
-            <FormControl>
-              <Stack direction="row">
-                <FormLabel htmlFor="type">Raws</FormLabel>
-                <Button size="sm" onClick={handleAddProductRaw}>
-                  <Icon as={BsPlus} fontSize="md" />
-                </Button>
-              </Stack>
-              <Stack>
-                {
-                  productInputValues.raws.map((productRaw: ProductRaw, idx: number) => (
-                    <Stack direction="row" align="center" key={productRaw.id}>
-                      <Select placeholder="Select raw">
-                        {rawSelectOptions.map((rawOption: Raw) => (
-                          <option key={rawOption.id} value={rawOption.id}>
-                            {rawOption.code}
-                          </option>
-                        ))}
-                      </Select>
-                      <Input id="quantity" name="quantity" type="number" w="4xs" value={productRaw.quantity} onChange={() => handleProductRawInputChanges(idx)} />
-                      <Select placeholder="Select unit" w="xs">
-                        <option value="g">g</option>
-                        <option value="kg">kg</option>
-                        <option value="un">un</option>
-                      </Select>
+            <Stack direction="row">
+              <FormLabel htmlFor="type">Raws</FormLabel>
+              <Button size="sm" onClick={handleAddProductRaw}>
+                <Icon as={BsPlus} fontSize="md" />
+              </Button>
+            </Stack>
+
+            <Stack spacing="4">
+              {
+                productInputValues.raws.map((productRaw: ProductRaw, idx: number) => (
+
+                  <Stack key={productRaw.id}>
+                    <Stack direction="row" align="center">
+                      <FormControl>
+                        <Select placeholder="Select raw by code" onChange={handleSelectProductRawChanges(idx)} isRequired>
+                          {rawSelectOptions.map((rawOption: Raw) => (
+                            <option key={rawOption.id} value={rawOption.id}>
+                              {rawOption.code}
+                            </option>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      <FormControl isInvalid={isNumberInvalid(productRaw.quantity)} w="md">
+                        <Input
+                          id="quantity"
+                          name="quantity"
+                          type="number"
+                          placeholder="Insert quantity"
+                          value={productRaw.quantity}
+                          onChange={handleProductRawInputChanges(idx)}
+                          isRequired
+                        />
+                      </FormControl>
+                      <FormControl w="xs">
+                        <Select name="unit" onChange={handleProductRawInputChanges(idx)} isRequired>
+                          <option value="g">g</option>
+                          <option value="kg">kg</option>
+                          <option value="un">un</option>
+                        </Select>
+                      </FormControl>
                       <Button size="sm" onClick={() => handleDeleteProductRaw(idx)}>
                         <Icon as={BiTrashAlt} fontSize="md" />
                       </Button>
                     </Stack>
-                  ))
-                }
-              </Stack>
-            </FormControl>
+                  </Stack>
+                ))
+              }
+            </Stack>
           </ModalBody>
           <ModalFooter>
             <Stack direction="row" spacing="4">
